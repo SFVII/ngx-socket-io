@@ -109,7 +109,7 @@ const SocketFactory = (url = '', config) => {
 };
 
 class SocketFrontUpdateModule {
-    static forRoot(url = '', config) {
+    static forRoot(config) {
         return {
             ngModule: SocketFrontUpdateModule,
             providers: [

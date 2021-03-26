@@ -116,8 +116,7 @@ var SocketFactory = function (url, config) {
 var SocketFrontUpdateModule = /** @class */ (function () {
     function SocketFrontUpdateModule() {
     }
-    SocketFrontUpdateModule.forRoot = function (url, config) {
-        if (url === void 0) { url = ''; }
+    SocketFrontUpdateModule.forRoot = function (config) {
         return {
             ngModule: SocketFrontUpdateModule,
             providers: [

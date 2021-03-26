@@ -6,7 +6,7 @@ import {SocketFactory} from './factory/SocketFactory';
 
 @NgModule({})
 export class SocketFrontUpdateModule {
-  public static forRoot(url: string = '', config: SocketIoConfig): ModuleWithProviders<SocketFrontUpdateModule> {
+  public static forRoot(config: { url: string, config: SocketIoConfig }): ModuleWithProviders<SocketFrontUpdateModule> {
     return {
       ngModule: SocketFrontUpdateModule,
       providers: [
