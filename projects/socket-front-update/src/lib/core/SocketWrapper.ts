@@ -4,13 +4,12 @@
  **  @author Brice Daupiard <brice.daupiard@smartiiz.com>  **
  **  @Date 26/03/2021                                         **
  ***********************************************************/
-import {EventEmitter} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {SocketIoConfig} from '../interface/Interface-config';
 import {DefaultSocketConfig} from '../config/default';
 import {Observable} from 'rxjs';
 import {share} from 'rxjs/operators';
 import * as io from 'socket.io-client';
-
 
 export class SocketWrapper {
   public tokenUpdater: any = new EventEmitter();
@@ -37,7 +36,7 @@ export class SocketWrapper {
   }
 
   roomData(name: string, callback: () => void) {
-    this.socket.join(name);
+    this.socket.emit('joinroom', name);
     this.socket.on(name, callback);
   }
 

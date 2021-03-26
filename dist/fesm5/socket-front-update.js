@@ -1,4 +1,5 @@
-import { InjectionToken, EventEmitter, ɵɵdefineNgModule, ɵɵdefineInjector, ɵsetClassMetadata, NgModule } from '@angular/core';
+import { __decorate } from 'tslib';
+import { InjectionToken, EventEmitter, NgModule } from '@angular/core';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import * as io from 'socket.io-client';
@@ -62,7 +63,7 @@ var SocketWrapper = /** @class */ (function () {
         }
     }
     SocketWrapper.prototype.roomData = function (name, callback) {
-        this.socket.join(name);
+        this.socket.emit('joinroom', name);
         this.socket.on(name, callback);
     };
     SocketWrapper.prototype.of = function (namespace) {
@@ -133,9 +134,10 @@ var SocketFactory = function (config) {
 var SocketFrontUpdateModule = /** @class */ (function () {
     function SocketFrontUpdateModule() {
     }
+    SocketFrontUpdateModule_1 = SocketFrontUpdateModule;
     SocketFrontUpdateModule.forRoot = function (config) {
         return {
-            ngModule: SocketFrontUpdateModule,
+            ngModule: SocketFrontUpdateModule_1,
             providers: [
                 { provide: SOCKET_CONFIG_TOKEN, useValue: config },
                 {
@@ -146,14 +148,12 @@ var SocketFrontUpdateModule = /** @class */ (function () {
             ]
         };
     };
-    SocketFrontUpdateModule.ɵmod = ɵɵdefineNgModule({ type: SocketFrontUpdateModule });
-    SocketFrontUpdateModule.ɵinj = ɵɵdefineInjector({ factory: function SocketFrontUpdateModule_Factory(t) { return new (t || SocketFrontUpdateModule)(); } });
+    var SocketFrontUpdateModule_1;
+    SocketFrontUpdateModule = SocketFrontUpdateModule_1 = __decorate([
+        NgModule({})
+    ], SocketFrontUpdateModule);
     return SocketFrontUpdateModule;
 }());
-/*@__PURE__*/ (function () { ɵsetClassMetadata(SocketFrontUpdateModule, [{
-        type: NgModule,
-        args: [{}]
-    }], null, null); })();
 
 /*
  * Public API Surface of socket-front-update
