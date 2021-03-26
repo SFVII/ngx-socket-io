@@ -21,5 +21,5 @@ export interface SocketIoConfig {
   autoConnect?: boolean; // default true,
   query?: any; // default {}
   extraHeaders?: any; // default {}
-  transports?: Transport[];
+  transports?: string[];
 }

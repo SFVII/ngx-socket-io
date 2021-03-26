@@ -4,10 +4,6 @@
  **  @author Brice Daupiard <brice.daupiard@smartiiz.com>  **
  **  @Date 26/03/2021                                         **
  ***********************************************************/
-declare const enum Transport {
-    'pooling' = "polling",
-    'websocket' = "websocket"
-}
 export interface SocketIoConfig {
     path?: string;
     reconnection?: boolean;
@@ -19,6 +15,5 @@ export interface SocketIoConfig {
     autoConnect?: boolean;
     query?: any;
     extraHeaders?: any;
-    transports?: Transport[];
+    transports?: string[];
 }
-export {};

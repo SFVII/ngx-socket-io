@@ -6,8 +6,10 @@ import { SocketFactory } from './factory/SocketFactory';
 import * as i0 from "@angular/core";
 export declare class SocketFrontUpdateModule {
     static forRoot(config: {
-        url: string;
-        config: SocketIoConfig;
+        url?: string;
+        config?: SocketIoConfig;
+        auth?: boolean;
+        loginPage?: string;
     }): ModuleWithProviders<SocketFrontUpdateModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<SocketFrontUpdateModule, never, never, never>;
     static ɵinj: i0.ɵɵInjectorDef<SocketFrontUpdateModule>;

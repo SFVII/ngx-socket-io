@@ -41,13 +41,24 @@ const DefaultSocketConfig = {
  **  @Date 26/03/2021                                         **
  ***********************************************************/
 class SocketWrapper {
-    // tslint:disable-next-line:max-line-length
-    constructor(url = '', config) {
-        this.url = url;
-        this.config = config;
+    constructor(Config) {
+        this.Config = Config;
         this.tokenUpdater = new EventEmitter();
         this.subscribersCounter = 0;
-        this.config = !config ? DefaultSocketConfig : config;
+        this.config = !Config ? DefaultSocketConfig : Config.config;
+        this.url = !Config ? '' : Config.url;
+        if (Config && !Config.auth) {
+            this.socket = this.connect();
+        }
+        else {
+            this.tokenUpdater.subscribe((token) => {
+                if (token) {
+                    this.config.extraHeaders.Authorization = `Baerer ${token}`;
+                    this.socket = this.connect();
+                    this.redirectLogin(Config.loginPage);
+                }
+            });
+        }
     }
     roomData(name, callback) {
         this.socket.join(name);
@@ -102,10 +113,17 @@ class SocketWrapper {
         return new Promise(resolve => this.once(eventName, resolve));
     }
     ;
+    redirectLogin(loginPage) {
+        if (this.socket && loginPage) {
+            this.socket.on('session-time-out', (msg) => {
+                window.location.replace(loginPage);
+            });
+        }
+    }
 }
 
-const SocketFactory = (url = '', config) => {
-    return new SocketWrapper(url, config);
+const SocketFactory = (config) => {
+    return new SocketWrapper(config);
 };
 
 class SocketFrontUpdateModule {

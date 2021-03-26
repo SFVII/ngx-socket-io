@@ -1,36 +1,23 @@
 import { SocketIoConfig } from '../interface/Interface-config';
 import { Observable } from 'rxjs';
 export declare class SocketWrapper {
-    url: string;
-    config?: {
-        path: string;
-        autoConnect: boolean;
-        transports: string[];
-        query: {};
-        reconnectionDelayMax: number;
-        extraHeaders: {};
-        reconnection: boolean;
-        reconnectionAttempts: number;
-        timeout: number;
-        reconnectionDelay: number;
-        randomizationFactor: number;
-    } | SocketIoConfig;
+    Config?: {
+        url?: string;
+        config?: SocketIoConfig;
+        auth?: boolean;
+        loginPage?: string;
+    };
     tokenUpdater: any;
     socket: any;
     private subscribersCounter;
-    constructor(url?: string, config?: {
-        path: string;
-        autoConnect: boolean;
-        transports: string[];
-        query: {};
-        reconnectionDelayMax: number;
-        extraHeaders: {};
-        reconnection: boolean;
-        reconnectionAttempts: number;
-        timeout: number;
-        reconnectionDelay: number;
-        randomizationFactor: number;
-    } | SocketIoConfig);
+    private url;
+    private config;
+    constructor(Config?: {
+        url?: string;
+        config?: SocketIoConfig;
+        auth?: boolean;
+        loginPage?: string;
+    });
     roomData(name: string, callback: () => void): void;
     of(namespace: string): void;
     on(eventName: string, callback: (data: any) => void): void;
@@ -42,4 +29,5 @@ export declare class SocketWrapper {
     removeAllListeners(eventName?: string): any;
     fromEvent<T>(eventName: string): Observable<any>;
     fromOneTimeEvent<T>(eventName: string): Promise<any>;
+    private redirectLogin;
 }

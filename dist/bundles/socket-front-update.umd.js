@@ -43,14 +43,25 @@
      **  @Date 26/03/2021                                         **
      ***********************************************************/
     var SocketWrapper = /** @class */ (function () {
-        // tslint:disable-next-line:max-line-length
-        function SocketWrapper(url, config) {
-            if (url === void 0) { url = ''; }
-            this.url = url;
-            this.config = config;
+        function SocketWrapper(Config) {
+            var _this = this;
+            this.Config = Config;
             this.tokenUpdater = new core.EventEmitter();
             this.subscribersCounter = 0;
-            this.config = !config ? DefaultSocketConfig : config;
+            this.config = !Config ? DefaultSocketConfig : Config.config;
+            this.url = !Config ? '' : Config.url;
+            if (Config && !Config.auth) {
+                this.socket = this.connect();
+            }
+            else {
+                this.tokenUpdater.subscribe(function (token) {
+                    if (token) {
+                        _this.config.extraHeaders.Authorization = "Baerer " + token;
+                        _this.socket = _this.connect();
+                        _this.redirectLogin(Config.loginPage);
+                    }
+                });
+            }
         }
         SocketWrapper.prototype.roomData = function (name, callback) {
             this.socket.join(name);
@@ -107,12 +118,18 @@
             return new Promise(function (resolve) { return _this.once(eventName, resolve); });
         };
         ;
+        SocketWrapper.prototype.redirectLogin = function (loginPage) {
+            if (this.socket && loginPage) {
+                this.socket.on('session-time-out', function (msg) {
+                    window.location.replace(loginPage);
+                });
+            }
+        };
         return SocketWrapper;
     }());
 
-    var SocketFactory = function (url, config) {
-        if (url === void 0) { url = ''; }
-        return new SocketWrapper(url, config);
+    var SocketFactory = function (config) {
+        return new SocketWrapper(config);
     };
 
     var SocketFrontUpdateModule = /** @class */ (function () {

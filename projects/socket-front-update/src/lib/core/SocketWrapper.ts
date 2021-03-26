@@ -16,10 +16,24 @@ export class SocketWrapper {
   public tokenUpdater: any = new EventEmitter();
   public socket: any;
   private subscribersCounter: number = 0;
-
+  private url: string;
   // tslint:disable-next-line:max-line-length
-  constructor(public url: string = '', public config?: { path: string; autoConnect: boolean; transports: string[]; query: {}; reconnectionDelayMax: number; extraHeaders: {}; reconnection: boolean; reconnectionAttempts: number; timeout: number; reconnectionDelay: number; randomizationFactor: number } | SocketIoConfig) {
-    this.config = !config ? DefaultSocketConfig : config;
+  private config: { path?: string; autoConnect?: boolean; transports?: string[]; query?: {}; reconnectionDelayMax?: number; extraHeaders?: {}; reconnection?: boolean; reconnectionAttempts?: number; timeout?: number; reconnectionDelay?: number; randomizationFactor?: number } | SocketIoConfig;
+
+  constructor(public Config?: { url?: string; config?: SocketIoConfig, auth?: boolean, loginPage?: string }) {
+    this.config = !Config ? DefaultSocketConfig : Config.config;
+    this.url = !Config ? '' : Config.url;
+    if (Config && !Config.auth) {
+      this.socket = this.connect();
+    } else {
+      this.tokenUpdater.subscribe((token: string) => {
+        if (token) {
+          this.config.extraHeaders.Authorization = `Baerer ${token}`;
+          this.socket = this.connect();
+          this.redirectLogin(Config.loginPage);
+        }
+      });
+    }
   }
 
   roomData(name: string, callback: () => void) {
@@ -77,5 +91,13 @@ export class SocketWrapper {
   fromOneTimeEvent<T>(eventName: string): Promise<any> {
     return new Promise(resolve => this.once(eventName, resolve));
   };
+
+  private redirectLogin(loginPage: string) {
+    if (this.socket && loginPage) {
+      this.socket.on('session-time-out', (msg: any) => {
+        window.location.replace(loginPage);
+      });
+    }
+  }
 
 }
