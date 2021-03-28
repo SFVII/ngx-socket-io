@@ -33,4 +33,3 @@ export class SocketIoModule {
   }
 }
 
-export {SocketFrontUpdateService as Socket};

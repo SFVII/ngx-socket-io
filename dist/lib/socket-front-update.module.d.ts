@@ -28,4 +28,3 @@ export declare class SocketIoModule {
         loginPage?: string;
     }): ModuleWithProviders;
 }
-export { SocketFrontUpdateService as Socket };

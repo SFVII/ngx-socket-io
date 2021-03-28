@@ -377,7 +377,6 @@
         return SocketIoModule;
     }());
 
-    exports.Socket = SocketFrontUpdateService;
     exports.SocketFactory = SocketFactory;
     exports.SocketFrontUpdateService = SocketFrontUpdateService;
     exports.SocketIoModule = SocketIoModule;
