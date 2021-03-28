@@ -152,5 +152,5 @@ SocketIoModule = SocketIoModule_1 = __decorate([
  * Generated bundle index. Do not edit.
  */
 
-export { SOCKET_CONFIG_TOKEN, SocketFactory, SocketFrontUpdateService, SocketIoModule };
+export { SOCKET_CONFIG_TOKEN, SocketFrontUpdateService as Socket, SocketFactory, SocketIoModule };
 //# sourceMappingURL=socket-front-update.js.map

@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('socket.io-client')) :
     typeof define === 'function' && define.amd ? define('socket-front-update', ['exports', '@angular/core', 'rxjs', 'rxjs/operators', 'socket.io-client'], factory) :
-    (global = global || self, factory(global['socket-front-update'] = {}, global.ng.core, global.rxjs, global.rxjs.operators, global.io__default));
+    (global = global || self, factory(global['socket-front-update'] = {}, global.ng.core, global.rxjs, global.rxjs.operators, global.io.client));
 }(this, (function (exports, core, rxjs, operators, io__default) { 'use strict';
 
     var io__default__default = 'default' in io__default ? io__default['default'] : io__default;
@@ -371,8 +371,8 @@
     }());
 
     exports.SOCKET_CONFIG_TOKEN = SOCKET_CONFIG_TOKEN;
+    exports.Socket = SocketFrontUpdateService;
     exports.SocketFactory = SocketFactory;
-    exports.SocketFrontUpdateService = SocketFrontUpdateService;
     exports.SocketIoModule = SocketIoModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });
