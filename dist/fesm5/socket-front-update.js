@@ -121,12 +121,12 @@ var SocketFrontUpdateService = /** @class */ (function () {
  **  @author Brice Daupiard <brice.daupiard@smartiiz.com> **
  **  @Date 26/03/2021                                     **
  ***********************************************************/
-var SOCKET_CONFIG_TOKEN = new InjectionToken('__SOCKET_IO_CONFIG_' +
-    Math.floor(Math.random() * Math.floor(100)).toString() + '__');
+var SOCKET_CONFIG_TOKEN = new InjectionToken('__SOCKET_IO_CONFIG_');
 
-var SocketFactory = function (config) {
+function SocketFactory(config) {
     return new SocketFrontUpdateService(config);
-};
+}
+;
 
 // @dynamic
 var SocketFrontUpdateModule = /** @class */ (function () {

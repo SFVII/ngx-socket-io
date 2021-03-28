@@ -5,4 +5,5 @@
  **  @Date 26/03/2021                                     **
  ***********************************************************/
 import { InjectionToken } from '@angular/core';
-export declare const SOCKET_CONFIG_TOKEN: InjectionToken<unknown>;
+import { SocketIoConfig } from '../interface/Interface-config';
+export declare const SOCKET_CONFIG_TOKEN: InjectionToken<SocketIoConfig>;

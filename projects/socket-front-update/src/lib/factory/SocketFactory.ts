@@ -5,9 +5,8 @@
  **  @Date 26/03/2021                                         **
  ***********************************************************/
 import {SocketIoConfig} from '../interface/Interface-config';
-import {SocketWrapper} from '../core/SocketWrapper';
 import {SocketFrontUpdateService} from '../socket-front-update.service';
 
-export const SocketFactory = (config: { url?: string, config?: { path?: string; autoConnect?: boolean; transports?: string[]; query?: {}; reconnectionDelayMax?: number; extraHeaders?: {}; reconnection?: boolean; reconnectionAttempts?: number; timeout?: number; reconnectionDelay?: number; randomizationFactor?: number } | SocketIoConfig, auth?: boolean, loginPage?: string  }) => {
+export function SocketFactory(config: { url?: string, config?: { path?: string; autoConnect?: boolean; transports?: string[]; query?: {}; reconnectionDelayMax?: number; extraHeaders?: {}; reconnection?: boolean; reconnectionAttempts?: number; timeout?: number; reconnectionDelay?: number; randomizationFactor?: number } | SocketIoConfig, auth?: boolean, loginPage?: string }) {
   return new SocketFrontUpdateService(config);
 };

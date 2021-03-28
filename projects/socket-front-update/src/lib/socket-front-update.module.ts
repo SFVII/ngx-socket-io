@@ -12,7 +12,7 @@ export class SocketFrontUpdateModule {
         'SocketFrontUpdateModule is already loaded. Import it in the AppModule only');
     }
   }
-  public static forRoot(config: { url?: string, config?: SocketIoConfig, auth?: boolean, loginPage?: string }): ModuleWithProviders<SocketFrontUpdateModule> {
+  public static forRoot(config: { url?: string, config?: SocketIoConfig, auth?: boolean, loginPage?: string }): ModuleWithProviders {
     return {
       ngModule: SocketFrontUpdateModule,
       providers: [

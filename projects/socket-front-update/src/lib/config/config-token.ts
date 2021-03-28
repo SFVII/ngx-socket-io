@@ -5,6 +5,6 @@
  **  @Date 26/03/2021                                     **
  ***********************************************************/
 import {InjectionToken} from '@angular/core';
+import {SocketIoConfig} from '../interface/Interface-config';
 
-export const SOCKET_CONFIG_TOKEN = new InjectionToken('__SOCKET_IO_CONFIG_' +
-  Math.floor(Math.random() * Math.floor(100)).toString() + '__');
+export const SOCKET_CONFIG_TOKEN = new InjectionToken<SocketIoConfig>('__SOCKET_IO_CONFIG_');

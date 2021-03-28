@@ -6,9 +6,9 @@
  ***********************************************************/
 import { SocketIoConfig } from '../interface/Interface-config';
 import { SocketFrontUpdateService } from '../socket-front-update.service';
-export declare const SocketFactory: (config: {
+export declare function SocketFactory(config: {
     url?: string;
-    config?: SocketIoConfig | {
+    config?: {
         path?: string;
         autoConnect?: boolean;
         transports?: string[];
@@ -20,7 +20,7 @@ export declare const SocketFactory: (config: {
         timeout?: number;
         reconnectionDelay?: number;
         randomizationFactor?: number;
-    };
+    } | SocketIoConfig;
     auth?: boolean;
     loginPage?: string;
-}) => SocketFrontUpdateService;
+}): SocketFrontUpdateService;

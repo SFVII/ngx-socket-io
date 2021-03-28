@@ -117,12 +117,12 @@ SocketFrontUpdateService = __decorate([
  **  @author Brice Daupiard <brice.daupiard@smartiiz.com> **
  **  @Date 26/03/2021                                     **
  ***********************************************************/
-const SOCKET_CONFIG_TOKEN = new InjectionToken('__SOCKET_IO_CONFIG_' +
-    Math.floor(Math.random() * Math.floor(100)).toString() + '__');
+const SOCKET_CONFIG_TOKEN = new InjectionToken('__SOCKET_IO_CONFIG_');
 
-const SocketFactory = (config) => {
+function SocketFactory(config) {
     return new SocketFrontUpdateService(config);
-};
+}
+;
 
 var SocketFrontUpdateModule_1;
 // @dynamic

@@ -10,6 +10,6 @@ export declare class SocketFrontUpdateModule {
         config?: SocketIoConfig;
         auth?: boolean;
         loginPage?: string;
-    }): ModuleWithProviders<SocketFrontUpdateModule>;
+    }): ModuleWithProviders;
 }
 export { SocketFrontUpdateModule as SocketIoModule, SocketFrontUpdateService as Socket, SOCKET_CONFIG_TOKEN, SocketFactory };
