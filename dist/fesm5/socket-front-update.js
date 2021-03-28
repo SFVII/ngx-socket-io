@@ -115,6 +115,12 @@ var SocketFrontUpdateService = /** @class */ (function () {
     return SocketFrontUpdateService;
 }());
 
+// tslint:disable-next-line:max-line-length
+function SocketFactory(config) {
+    return new SocketFrontUpdateService(config);
+}
+;
+
 /***********************************************************
  **  @project ngx-front-live-update                       **
  **  @file config-token                                   **
@@ -122,12 +128,6 @@ var SocketFrontUpdateService = /** @class */ (function () {
  **  @Date 26/03/2021                                     **
  ***********************************************************/
 var SOCKET_CONFIG_TOKEN = new InjectionToken('__SOCKET_IO_CONFIG_');
-
-// tslint:disable-next-line:max-line-length
-function SocketFactory(config) {
-    return new SocketFrontUpdateService(config);
-}
-;
 
 // @dynamic
 var SocketIoModule = /** @class */ (function () {
@@ -169,5 +169,5 @@ var SocketIoModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { SocketFrontUpdateService as Socket, SocketFrontUpdateService, SocketIoModule, SOCKET_CONFIG_TOKEN as ɵa, SocketFactory as ɵb };
+export { SocketFrontUpdateService as Socket, SocketFactory, SocketFrontUpdateService, SocketIoModule, SOCKET_CONFIG_TOKEN as ɵa };
 //# sourceMappingURL=socket-front-update.js.map

@@ -3,4 +3,3 @@
  */
 export * from './public-api';
 export { SOCKET_CONFIG_TOKEN as ɵa } from './lib/config/config-token';
-export { SocketFactory as ɵb } from './lib/factory/SocketFactory';

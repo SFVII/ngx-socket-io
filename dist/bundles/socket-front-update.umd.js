@@ -335,6 +335,12 @@
         return SocketFrontUpdateService;
     }());
 
+    // tslint:disable-next-line:max-line-length
+    function SocketFactory(config) {
+        return new SocketFrontUpdateService(config);
+    }
+    ;
+
     /***********************************************************
      **  @project ngx-front-live-update                       **
      **  @file config-token                                   **
@@ -342,12 +348,6 @@
      **  @Date 26/03/2021                                     **
      ***********************************************************/
     var SOCKET_CONFIG_TOKEN = new core.InjectionToken('__SOCKET_IO_CONFIG_');
-
-    // tslint:disable-next-line:max-line-length
-    function SocketFactory(config) {
-        return new SocketFrontUpdateService(config);
-    }
-    ;
 
     // @dynamic
     var SocketIoModule = /** @class */ (function () {
@@ -382,10 +382,10 @@
     }());
 
     exports.Socket = SocketFrontUpdateService;
+    exports.SocketFactory = SocketFactory;
     exports.SocketFrontUpdateService = SocketFrontUpdateService;
     exports.SocketIoModule = SocketIoModule;
     exports.ɵa = SOCKET_CONFIG_TOKEN;
-    exports.ɵb = SocketFactory;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

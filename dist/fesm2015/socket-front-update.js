@@ -111,6 +111,12 @@ SocketFrontUpdateService = __decorate([
     __param(0, Optional())
 ], SocketFrontUpdateService);
 
+// tslint:disable-next-line:max-line-length
+function SocketFactory(config) {
+    return new SocketFrontUpdateService(config);
+}
+;
+
 /***********************************************************
  **  @project ngx-front-live-update                       **
  **  @file config-token                                   **
@@ -118,12 +124,6 @@ SocketFrontUpdateService = __decorate([
  **  @Date 26/03/2021                                     **
  ***********************************************************/
 const SOCKET_CONFIG_TOKEN = new InjectionToken('__SOCKET_IO_CONFIG_');
-
-// tslint:disable-next-line:max-line-length
-function SocketFactory(config) {
-    return new SocketFrontUpdateService(config);
-}
-;
 
 var SocketIoModule_1;
 // @dynamic
@@ -163,5 +163,5 @@ SocketIoModule = SocketIoModule_1 = __decorate([
  * Generated bundle index. Do not edit.
  */
 
-export { SocketFrontUpdateService as Socket, SocketFrontUpdateService, SocketIoModule, SOCKET_CONFIG_TOKEN as ɵa, SocketFactory as ɵb };
+export { SocketFrontUpdateService as Socket, SocketFactory, SocketFrontUpdateService, SocketIoModule, SOCKET_CONFIG_TOKEN as ɵa };
 //# sourceMappingURL=socket-front-update.js.map
