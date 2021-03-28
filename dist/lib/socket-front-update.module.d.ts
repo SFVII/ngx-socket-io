@@ -1,6 +1,6 @@
 import { InjectionToken, ModuleWithProviders } from '@angular/core';
 import { SocketIoConfig } from './interface/Interface-config';
-import { SocketFrontUpdateService as Socket } from './socket-front-update.service';
+import { SocketWrapper } from './socket-front-update.service';
 export declare function SocketFactory(config: {
     url?: string;
     config?: {
@@ -18,7 +18,7 @@ export declare function SocketFactory(config: {
     } | SocketIoConfig;
     auth?: boolean;
     loginPage?: string;
-}): Socket;
+}): SocketWrapper;
 export declare const SOCKET_CONFIG_TOKEN: InjectionToken<SocketIoConfig>;
 declare class SocketIoModule {
     constructor(parentModule?: SocketIoModule);
@@ -29,4 +29,4 @@ declare class SocketIoModule {
         loginPage?: string;
     }): ModuleWithProviders;
 }
-export { SocketIoModule, Socket };
+export { SocketIoModule, SocketWrapper, SocketWrapper as Socket };

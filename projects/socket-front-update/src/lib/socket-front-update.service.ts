@@ -7,7 +7,7 @@ import * as io from 'socket.io-client';
 import { Inject } from '@angular/core';
 
 
-export class SocketFrontUpdateService {
+export class SocketWrapper {
 
   public tokenUpdater: any = new EventEmitter();
   public socket: any;

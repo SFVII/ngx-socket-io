@@ -246,8 +246,8 @@
         extraHeaders: {}
     };
 
-    var SocketFrontUpdateService = /** @class */ (function () {
-        function SocketFrontUpdateService(Config) {
+    var SocketWrapper = /** @class */ (function () {
+        function SocketWrapper(Config) {
             var _this = this;
             this.tokenUpdater = new core.EventEmitter();
             this.subscribersCounter = 0;
@@ -266,42 +266,42 @@
                 });
             }
         }
-        SocketFrontUpdateService.prototype.roomData = function (name, callback) {
+        SocketWrapper.prototype.roomData = function (name, callback) {
             this.socket.emit('joinroom', name);
             this.socket.on(name, callback);
         };
-        SocketFrontUpdateService.prototype.of = function (namespace) {
+        SocketWrapper.prototype.of = function (namespace) {
             this.socket.of(namespace);
         };
         ;
-        SocketFrontUpdateService.prototype.on = function (eventName, callback) {
+        SocketWrapper.prototype.on = function (eventName, callback) {
             this.socket.on(eventName, callback);
         };
         ;
-        SocketFrontUpdateService.prototype.once = function (eventName, callback) {
+        SocketWrapper.prototype.once = function (eventName, callback) {
             this.socket.once(eventName, callback);
         };
         ;
-        SocketFrontUpdateService.prototype.connect = function () {
+        SocketWrapper.prototype.connect = function () {
             var ioSocket = io__default__default ? io__default__default : io__default;
             return ioSocket(this.url, this.config).connect();
         };
-        SocketFrontUpdateService.prototype.disconnect = function (close) {
+        SocketWrapper.prototype.disconnect = function (close) {
             return this.socket.disconnect.apply(this.socket, arguments);
         };
-        SocketFrontUpdateService.prototype.emit = function (eventName, data, callback) {
+        SocketWrapper.prototype.emit = function (eventName, data, callback) {
             this.socket.emit(eventName, data, callback);
         };
         ;
-        SocketFrontUpdateService.prototype.removeListener = function (eventName, callback) {
+        SocketWrapper.prototype.removeListener = function (eventName, callback) {
             return this.socket.removeListener.apply(this.socket, arguments);
         };
         ;
-        SocketFrontUpdateService.prototype.removeAllListeners = function (eventName) {
+        SocketWrapper.prototype.removeAllListeners = function (eventName) {
             return this.socket.removeAllListeners.apply(this.socket, arguments);
         };
         ;
-        SocketFrontUpdateService.prototype.fromEvent = function (eventName) {
+        SocketWrapper.prototype.fromEvent = function (eventName) {
             var _this = this;
             this.subscribersCounter++;
             return new rxjs.Observable(function (observer) {
@@ -316,27 +316,27 @@
             }).pipe(operators.share());
         };
         ;
-        SocketFrontUpdateService.prototype.fromOneTimeEvent = function (eventName) {
+        SocketWrapper.prototype.fromOneTimeEvent = function (eventName) {
             var _this = this;
             return new Promise(function (resolve) { return _this.once(eventName, resolve); });
         };
         ;
-        SocketFrontUpdateService.prototype.redirectLogin = function (loginPage) {
+        SocketWrapper.prototype.redirectLogin = function (loginPage) {
             if (this.socket && loginPage) {
                 this.socket.on('session-time-out', function (msg) {
                     window.location.replace(loginPage);
                 });
             }
         };
-        SocketFrontUpdateService = __decorate([
+        SocketWrapper = __decorate([
             __param(0, core.Optional())
-        ], SocketFrontUpdateService);
-        return SocketFrontUpdateService;
+        ], SocketWrapper);
+        return SocketWrapper;
     }());
 
     // tslint:disable-next-line:max-line-length
     function SocketFactory(config) {
-        return new SocketFrontUpdateService(config);
+        return new SocketWrapper(config);
     }
     var SOCKET_CONFIG_TOKEN = new core.InjectionToken('__SOCKET_IO_CONFIG_');
     var SocketIoModule = /** @class */ (function () {
@@ -352,7 +352,7 @@
                 providers: [
                     { provide: SOCKET_CONFIG_TOKEN, useValue: config },
                     {
-                        provide: SocketFrontUpdateService,
+                        provide: SocketWrapper,
                         useFactory: SocketFactory,
                         deps: [SOCKET_CONFIG_TOKEN]
                     }
@@ -371,9 +371,10 @@
     }());
 
     exports.SOCKET_CONFIG_TOKEN = SOCKET_CONFIG_TOKEN;
-    exports.Socket = SocketFrontUpdateService;
+    exports.Socket = SocketWrapper;
     exports.SocketFactory = SocketFactory;
     exports.SocketIoModule = SocketIoModule;
+    exports.SocketWrapper = SocketWrapper;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

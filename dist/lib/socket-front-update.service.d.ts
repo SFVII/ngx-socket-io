@@ -1,6 +1,6 @@
 import { SocketIoConfig } from './interface/Interface-config';
 import { Observable } from 'rxjs';
-export declare class SocketFrontUpdateService {
+export declare class SocketWrapper {
     tokenUpdater: any;
     socket: any;
     private subscribersCounter;

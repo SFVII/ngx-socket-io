@@ -26,7 +26,7 @@ const DefaultSocketConfig = {
     extraHeaders: {}
 };
 
-let SocketFrontUpdateService = class SocketFrontUpdateService {
+let SocketWrapper = class SocketWrapper {
     constructor(Config) {
         this.tokenUpdater = new EventEmitter();
         this.subscribersCounter = 0;
@@ -106,14 +106,14 @@ let SocketFrontUpdateService = class SocketFrontUpdateService {
         }
     }
 };
-SocketFrontUpdateService = __decorate([
+SocketWrapper = __decorate([
     __param(0, Optional())
-], SocketFrontUpdateService);
+], SocketWrapper);
 
 var SocketIoModule_1;
 // tslint:disable-next-line:max-line-length
 function SocketFactory(config) {
-    return new SocketFrontUpdateService(config);
+    return new SocketWrapper(config);
 }
 const SOCKET_CONFIG_TOKEN = new InjectionToken('__SOCKET_IO_CONFIG_');
 let SocketIoModule = SocketIoModule_1 = class SocketIoModule {
@@ -128,7 +128,7 @@ let SocketIoModule = SocketIoModule_1 = class SocketIoModule {
             providers: [
                 { provide: SOCKET_CONFIG_TOKEN, useValue: config },
                 {
-                    provide: SocketFrontUpdateService,
+                    provide: SocketWrapper,
                     useFactory: SocketFactory,
                     deps: [SOCKET_CONFIG_TOKEN]
                 }
@@ -152,5 +152,5 @@ SocketIoModule = SocketIoModule_1 = __decorate([
  * Generated bundle index. Do not edit.
  */
 
-export { SOCKET_CONFIG_TOKEN, SocketFrontUpdateService as Socket, SocketFactory, SocketIoModule };
+export { SOCKET_CONFIG_TOKEN, SocketWrapper as Socket, SocketFactory, SocketIoModule, SocketWrapper };
 //# sourceMappingURL=socket-front-update.js.map

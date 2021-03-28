@@ -1,10 +1,10 @@
 import {InjectionToken, ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
 import {SocketIoConfig} from './interface/Interface-config';
-import {SocketFrontUpdateService as Socket} from './socket-front-update.service';
+import {SocketWrapper} from './socket-front-update.service';
 
 // tslint:disable-next-line:max-line-length
 export function SocketFactory(config: { url?: string, config?: { path?: string; autoConnect?: boolean; transports?: string[]; query?: {}; reconnectionDelayMax?: number; extraHeaders?: {}; reconnection?: boolean; reconnectionAttempts?: number; timeout?: number; reconnectionDelay?: number; randomizationFactor?: number } | SocketIoConfig, auth?: boolean, loginPage?: string }) {
-  return new Socket(config);
+  return new SocketWrapper(config);
 }
 
 export const SOCKET_CONFIG_TOKEN = new InjectionToken<SocketIoConfig>('__SOCKET_IO_CONFIG_');
@@ -24,7 +24,7 @@ class SocketIoModule {
       providers: [
         {provide: SOCKET_CONFIG_TOKEN, useValue: config},
         {
-          provide: Socket,
+          provide: SocketWrapper,
           useFactory: SocketFactory,
           deps: [SOCKET_CONFIG_TOKEN]
         }
@@ -33,5 +33,5 @@ class SocketIoModule {
   }
 }
 
-export {SocketIoModule, Socket};
+export {SocketIoModule, SocketWrapper, SocketWrapper as Socket};
 
