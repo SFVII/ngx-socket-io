@@ -1,6 +1,5 @@
-import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
+import {InjectionToken, ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
 import {SocketIoConfig} from './interface/Interface-config';
-import SOCKET_CONFIG_TOKEN from './config/config-token';
 import {SocketFrontUpdateService} from './socket-front-update.service';
 
 // tslint:disable-next-line:max-line-length
@@ -8,6 +7,7 @@ export function SocketFactory(config: { url?: string, config?: { path?: string; 
   return new SocketFrontUpdateService(config);
 }
 
+export const SOCKET_CONFIG_TOKEN = new InjectionToken<SocketIoConfig>('__SOCKET_IO_CONFIG_');
 
 @NgModule({})
 export class SocketIoModule {
