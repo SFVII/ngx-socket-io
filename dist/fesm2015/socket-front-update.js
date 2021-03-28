@@ -119,14 +119,15 @@ SocketFrontUpdateService = __decorate([
  ***********************************************************/
 const SOCKET_CONFIG_TOKEN = new InjectionToken('__SOCKET_IO_CONFIG_');
 
+// tslint:disable-next-line:max-line-length
 function SocketFactory(config) {
     return new SocketFrontUpdateService(config);
 }
 ;
 
-var SocketFrontUpdateModule_1;
+var SocketIoModule_1;
 // @dynamic
-let SocketFrontUpdateModule = SocketFrontUpdateModule_1 = class SocketFrontUpdateModule {
+let SocketIoModule = SocketIoModule_1 = class SocketIoModule {
     constructor(parentModule) {
         if (parentModule) {
             throw new Error('SocketFrontUpdateModule is already loaded. Import it in the AppModule only');
@@ -134,7 +135,7 @@ let SocketFrontUpdateModule = SocketFrontUpdateModule_1 = class SocketFrontUpdat
     }
     static forRoot(config) {
         return {
-            ngModule: SocketFrontUpdateModule_1,
+            ngModule: SocketIoModule_1,
             providers: [
                 { provide: SOCKET_CONFIG_TOKEN, useValue: config },
                 {
@@ -146,13 +147,13 @@ let SocketFrontUpdateModule = SocketFrontUpdateModule_1 = class SocketFrontUpdat
         };
     }
 };
-SocketFrontUpdateModule.ctorParameters = () => [
-    { type: SocketFrontUpdateModule, decorators: [{ type: Optional }, { type: SkipSelf }] }
+SocketIoModule.ctorParameters = () => [
+    { type: SocketIoModule, decorators: [{ type: Optional }, { type: SkipSelf }] }
 ];
-SocketFrontUpdateModule = SocketFrontUpdateModule_1 = __decorate([
+SocketIoModule = SocketIoModule_1 = __decorate([
     NgModule({}),
     __param(0, Optional()), __param(0, SkipSelf())
-], SocketFrontUpdateModule);
+], SocketIoModule);
 
 /*
  * Public API Surface of socket-front-update
@@ -162,5 +163,5 @@ SocketFrontUpdateModule = SocketFrontUpdateModule_1 = __decorate([
  * Generated bundle index. Do not edit.
  */
 
-export { SOCKET_CONFIG_TOKEN, SocketFrontUpdateService as Socket, SocketFactory, SocketFrontUpdateModule, SocketFrontUpdateService, SocketFrontUpdateModule as SocketIoModule };
+export { SocketFrontUpdateService, SocketIoModule, SOCKET_CONFIG_TOKEN as ɵa, SocketFactory as ɵb };
 //# sourceMappingURL=socket-front-update.js.map

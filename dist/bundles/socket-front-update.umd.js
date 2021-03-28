@@ -343,22 +343,23 @@
      ***********************************************************/
     var SOCKET_CONFIG_TOKEN = new core.InjectionToken('__SOCKET_IO_CONFIG_');
 
+    // tslint:disable-next-line:max-line-length
     function SocketFactory(config) {
         return new SocketFrontUpdateService(config);
     }
     ;
 
     // @dynamic
-    var SocketFrontUpdateModule = /** @class */ (function () {
-        function SocketFrontUpdateModule(parentModule) {
+    var SocketIoModule = /** @class */ (function () {
+        function SocketIoModule(parentModule) {
             if (parentModule) {
                 throw new Error('SocketFrontUpdateModule is already loaded. Import it in the AppModule only');
             }
         }
-        SocketFrontUpdateModule_1 = SocketFrontUpdateModule;
-        SocketFrontUpdateModule.forRoot = function (config) {
+        SocketIoModule_1 = SocketIoModule;
+        SocketIoModule.forRoot = function (config) {
             return {
-                ngModule: SocketFrontUpdateModule_1,
+                ngModule: SocketIoModule_1,
                 providers: [
                     { provide: SOCKET_CONFIG_TOKEN, useValue: config },
                     {
@@ -369,23 +370,21 @@
                 ]
             };
         };
-        var SocketFrontUpdateModule_1;
-        SocketFrontUpdateModule.ctorParameters = function () { return [
-            { type: SocketFrontUpdateModule, decorators: [{ type: core.Optional }, { type: core.SkipSelf }] }
+        var SocketIoModule_1;
+        SocketIoModule.ctorParameters = function () { return [
+            { type: SocketIoModule, decorators: [{ type: core.Optional }, { type: core.SkipSelf }] }
         ]; };
-        SocketFrontUpdateModule = SocketFrontUpdateModule_1 = __decorate([
+        SocketIoModule = SocketIoModule_1 = __decorate([
             core.NgModule({}),
             __param(0, core.Optional()), __param(0, core.SkipSelf())
-        ], SocketFrontUpdateModule);
-        return SocketFrontUpdateModule;
+        ], SocketIoModule);
+        return SocketIoModule;
     }());
 
-    exports.SOCKET_CONFIG_TOKEN = SOCKET_CONFIG_TOKEN;
-    exports.Socket = SocketFrontUpdateService;
-    exports.SocketFactory = SocketFactory;
-    exports.SocketFrontUpdateModule = SocketFrontUpdateModule;
     exports.SocketFrontUpdateService = SocketFrontUpdateService;
-    exports.SocketIoModule = SocketFrontUpdateModule;
+    exports.SocketIoModule = SocketIoModule;
+    exports.ɵa = SOCKET_CONFIG_TOKEN;
+    exports.ɵb = SocketFactory;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

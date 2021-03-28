@@ -123,22 +123,23 @@ var SocketFrontUpdateService = /** @class */ (function () {
  ***********************************************************/
 var SOCKET_CONFIG_TOKEN = new InjectionToken('__SOCKET_IO_CONFIG_');
 
+// tslint:disable-next-line:max-line-length
 function SocketFactory(config) {
     return new SocketFrontUpdateService(config);
 }
 ;
 
 // @dynamic
-var SocketFrontUpdateModule = /** @class */ (function () {
-    function SocketFrontUpdateModule(parentModule) {
+var SocketIoModule = /** @class */ (function () {
+    function SocketIoModule(parentModule) {
         if (parentModule) {
             throw new Error('SocketFrontUpdateModule is already loaded. Import it in the AppModule only');
         }
     }
-    SocketFrontUpdateModule_1 = SocketFrontUpdateModule;
-    SocketFrontUpdateModule.forRoot = function (config) {
+    SocketIoModule_1 = SocketIoModule;
+    SocketIoModule.forRoot = function (config) {
         return {
-            ngModule: SocketFrontUpdateModule_1,
+            ngModule: SocketIoModule_1,
             providers: [
                 { provide: SOCKET_CONFIG_TOKEN, useValue: config },
                 {
@@ -149,15 +150,15 @@ var SocketFrontUpdateModule = /** @class */ (function () {
             ]
         };
     };
-    var SocketFrontUpdateModule_1;
-    SocketFrontUpdateModule.ctorParameters = function () { return [
-        { type: SocketFrontUpdateModule, decorators: [{ type: Optional }, { type: SkipSelf }] }
+    var SocketIoModule_1;
+    SocketIoModule.ctorParameters = function () { return [
+        { type: SocketIoModule, decorators: [{ type: Optional }, { type: SkipSelf }] }
     ]; };
-    SocketFrontUpdateModule = SocketFrontUpdateModule_1 = __decorate([
+    SocketIoModule = SocketIoModule_1 = __decorate([
         NgModule({}),
         __param(0, Optional()), __param(0, SkipSelf())
-    ], SocketFrontUpdateModule);
-    return SocketFrontUpdateModule;
+    ], SocketIoModule);
+    return SocketIoModule;
 }());
 
 /*
@@ -168,5 +169,5 @@ var SocketFrontUpdateModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { SOCKET_CONFIG_TOKEN, SocketFrontUpdateService as Socket, SocketFactory, SocketFrontUpdateModule, SocketFrontUpdateService, SocketFrontUpdateModule as SocketIoModule };
+export { SocketFrontUpdateService, SocketIoModule, SOCKET_CONFIG_TOKEN as ɵa, SocketFactory as ɵb };
 //# sourceMappingURL=socket-front-update.js.map
