@@ -5,8 +5,8 @@ import {SocketFactory} from './factory/SocketFactory';
 import {SocketFrontUpdateService} from './socket-front-update.service';
 // @dynamic
 @NgModule({})
-export class SocketFrontUpdateModule {
-  constructor(@Optional() @SkipSelf() parentModule?: SocketFrontUpdateModule) {
+export class SocketIoModule {
+  constructor(@Optional() @SkipSelf() parentModule?: SocketIoModule) {
     if (parentModule) {
       throw new Error(
         'SocketFrontUpdateModule is already loaded. Import it in the AppModule only');
@@ -14,7 +14,7 @@ export class SocketFrontUpdateModule {
   }
   public static forRoot(config: { url?: string, config?: SocketIoConfig, auth?: boolean, loginPage?: string }): ModuleWithProviders {
     return {
-      ngModule: SocketFrontUpdateModule,
+      ngModule: SocketIoModule,
       providers: [
         {provide: SOCKET_CONFIG_TOKEN, useValue: config},
         {
@@ -26,5 +26,3 @@ export class SocketFrontUpdateModule {
     };
   }
 }
-
-export {SocketFrontUpdateModule as SocketIoModule, SocketFrontUpdateService as Socket, SOCKET_CONFIG_TOKEN, SocketFactory};
