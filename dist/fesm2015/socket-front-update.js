@@ -1,18 +1,9 @@
-import { __decorate } from 'tslib';
-import { InjectionToken, EventEmitter, NgModule } from '@angular/core';
+import { __decorate, __param } from 'tslib';
+import { EventEmitter, Optional, InjectionToken, SkipSelf, NgModule } from '@angular/core';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import * as io from 'socket.io-client';
 import io__default from 'socket.io-client';
-
-/***********************************************************
- **  @project ngx-front-live-update                       **
- **  @file config-token                                   **
- **  @author Brice Daupiard <brice.daupiard@smartiiz.com> **
- **  @Date 26/03/2021                                     **
- ***********************************************************/
-const SOCKET_CONFIG_TOKEN = new InjectionToken('__SOCKET_IO_CONFIG_' +
-    Math.floor(Math.random() * Math.floor(100)).toString() + '__');
 
 /***********************************************************
  **  @project ngx-front-live-update                              **
@@ -35,15 +26,9 @@ const DefaultSocketConfig = {
     extraHeaders: {}
 };
 
-/***********************************************************
- **  @project ngx-front-live-update                              **
- **  @file SocketWrapper                                         **
- **  @author Brice Daupiard <brice.daupiard@smartiiz.com>  **
- **  @Date 26/03/2021                                         **
- ***********************************************************/
-class SocketWrapper {
+// @dynamic
+let SocketFrontUpdateService = class SocketFrontUpdateService {
     constructor(Config) {
-        this.Config = Config;
         this.tokenUpdater = new EventEmitter();
         this.subscribersCounter = 0;
         this.config = !Config ? DefaultSocketConfig : Config.config;
@@ -121,21 +106,39 @@ class SocketWrapper {
             });
         }
     }
-}
+};
+SocketFrontUpdateService = __decorate([
+    __param(0, Optional())
+], SocketFrontUpdateService);
+
+/***********************************************************
+ **  @project ngx-front-live-update                       **
+ **  @file config-token                                   **
+ **  @author Brice Daupiard <brice.daupiard@smartiiz.com> **
+ **  @Date 26/03/2021                                     **
+ ***********************************************************/
+const SOCKET_CONFIG_TOKEN = new InjectionToken('__SOCKET_IO_CONFIG_' +
+    Math.floor(Math.random() * Math.floor(100)).toString() + '__');
 
 const SocketFactory = (config) => {
-    return new SocketWrapper(config);
+    return new SocketFrontUpdateService(config);
 };
 
 var SocketFrontUpdateModule_1;
+// @dynamic
 let SocketFrontUpdateModule = SocketFrontUpdateModule_1 = class SocketFrontUpdateModule {
+    constructor(parentModule) {
+        if (parentModule) {
+            throw new Error('SocketFrontUpdateModule is already loaded. Import it in the AppModule only');
+        }
+    }
     static forRoot(config) {
         return {
             ngModule: SocketFrontUpdateModule_1,
             providers: [
                 { provide: SOCKET_CONFIG_TOKEN, useValue: config },
                 {
-                    provide: SocketWrapper,
+                    provide: SocketFrontUpdateService,
                     useFactory: SocketFactory,
                     deps: [SOCKET_CONFIG_TOKEN]
                 }
@@ -143,8 +146,12 @@ let SocketFrontUpdateModule = SocketFrontUpdateModule_1 = class SocketFrontUpdat
         };
     }
 };
+SocketFrontUpdateModule.ctorParameters = () => [
+    { type: SocketFrontUpdateModule, decorators: [{ type: Optional }, { type: SkipSelf }] }
+];
 SocketFrontUpdateModule = SocketFrontUpdateModule_1 = __decorate([
-    NgModule({})
+    NgModule({}),
+    __param(0, Optional()), __param(0, SkipSelf())
 ], SocketFrontUpdateModule);
 
 /*
@@ -155,5 +162,5 @@ SocketFrontUpdateModule = SocketFrontUpdateModule_1 = __decorate([
  * Generated bundle index. Do not edit.
  */
 
-export { SOCKET_CONFIG_TOKEN, SocketWrapper as Socket, SocketFactory, SocketFrontUpdateModule, SocketFrontUpdateModule as SocketIoModule };
+export { SOCKET_CONFIG_TOKEN, SocketFrontUpdateService as Socket, SocketFactory, SocketFrontUpdateModule, SocketFrontUpdateService, SocketFrontUpdateModule as SocketIoModule };
 //# sourceMappingURL=socket-front-update.js.map

@@ -1,18 +1,9 @@
-import { __decorate } from 'tslib';
-import { InjectionToken, EventEmitter, NgModule } from '@angular/core';
+import { __decorate, __param } from 'tslib';
+import { EventEmitter, Optional, InjectionToken, SkipSelf, NgModule } from '@angular/core';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import * as io from 'socket.io-client';
 import io__default from 'socket.io-client';
-
-/***********************************************************
- **  @project ngx-front-live-update                       **
- **  @file config-token                                   **
- **  @author Brice Daupiard <brice.daupiard@smartiiz.com> **
- **  @Date 26/03/2021                                     **
- ***********************************************************/
-var SOCKET_CONFIG_TOKEN = new InjectionToken('__SOCKET_IO_CONFIG_' +
-    Math.floor(Math.random() * Math.floor(100)).toString() + '__');
 
 /***********************************************************
  **  @project ngx-front-live-update                              **
@@ -35,16 +26,10 @@ var DefaultSocketConfig = {
     extraHeaders: {}
 };
 
-/***********************************************************
- **  @project ngx-front-live-update                              **
- **  @file SocketWrapper                                         **
- **  @author Brice Daupiard <brice.daupiard@smartiiz.com>  **
- **  @Date 26/03/2021                                         **
- ***********************************************************/
-var SocketWrapper = /** @class */ (function () {
-    function SocketWrapper(Config) {
+// @dynamic
+var SocketFrontUpdateService = /** @class */ (function () {
+    function SocketFrontUpdateService(Config) {
         var _this = this;
-        this.Config = Config;
         this.tokenUpdater = new EventEmitter();
         this.subscribersCounter = 0;
         this.config = !Config ? DefaultSocketConfig : Config.config;
@@ -62,42 +47,42 @@ var SocketWrapper = /** @class */ (function () {
             });
         }
     }
-    SocketWrapper.prototype.roomData = function (name, callback) {
+    SocketFrontUpdateService.prototype.roomData = function (name, callback) {
         this.socket.emit('joinroom', name);
         this.socket.on(name, callback);
     };
-    SocketWrapper.prototype.of = function (namespace) {
+    SocketFrontUpdateService.prototype.of = function (namespace) {
         this.socket.of(namespace);
     };
     ;
-    SocketWrapper.prototype.on = function (eventName, callback) {
+    SocketFrontUpdateService.prototype.on = function (eventName, callback) {
         this.socket.on(eventName, callback);
     };
     ;
-    SocketWrapper.prototype.once = function (eventName, callback) {
+    SocketFrontUpdateService.prototype.once = function (eventName, callback) {
         this.socket.once(eventName, callback);
     };
     ;
-    SocketWrapper.prototype.connect = function () {
+    SocketFrontUpdateService.prototype.connect = function () {
         var ioSocket = io__default ? io__default : io;
         return ioSocket(this.url, this.config).connect();
     };
-    SocketWrapper.prototype.disconnect = function (close) {
+    SocketFrontUpdateService.prototype.disconnect = function (close) {
         return this.socket.disconnect.apply(this.socket, arguments);
     };
-    SocketWrapper.prototype.emit = function (eventName, data, callback) {
+    SocketFrontUpdateService.prototype.emit = function (eventName, data, callback) {
         this.socket.emit(eventName, data, callback);
     };
     ;
-    SocketWrapper.prototype.removeListener = function (eventName, callback) {
+    SocketFrontUpdateService.prototype.removeListener = function (eventName, callback) {
         return this.socket.removeListener.apply(this.socket, arguments);
     };
     ;
-    SocketWrapper.prototype.removeAllListeners = function (eventName) {
+    SocketFrontUpdateService.prototype.removeAllListeners = function (eventName) {
         return this.socket.removeAllListeners.apply(this.socket, arguments);
     };
     ;
-    SocketWrapper.prototype.fromEvent = function (eventName) {
+    SocketFrontUpdateService.prototype.fromEvent = function (eventName) {
         var _this = this;
         this.subscribersCounter++;
         return new Observable(function (observer) {
@@ -112,27 +97,43 @@ var SocketWrapper = /** @class */ (function () {
         }).pipe(share());
     };
     ;
-    SocketWrapper.prototype.fromOneTimeEvent = function (eventName) {
+    SocketFrontUpdateService.prototype.fromOneTimeEvent = function (eventName) {
         var _this = this;
         return new Promise(function (resolve) { return _this.once(eventName, resolve); });
     };
     ;
-    SocketWrapper.prototype.redirectLogin = function (loginPage) {
+    SocketFrontUpdateService.prototype.redirectLogin = function (loginPage) {
         if (this.socket && loginPage) {
             this.socket.on('session-time-out', function (msg) {
                 window.location.replace(loginPage);
             });
         }
     };
-    return SocketWrapper;
+    SocketFrontUpdateService = __decorate([
+        __param(0, Optional())
+    ], SocketFrontUpdateService);
+    return SocketFrontUpdateService;
 }());
 
+/***********************************************************
+ **  @project ngx-front-live-update                       **
+ **  @file config-token                                   **
+ **  @author Brice Daupiard <brice.daupiard@smartiiz.com> **
+ **  @Date 26/03/2021                                     **
+ ***********************************************************/
+var SOCKET_CONFIG_TOKEN = new InjectionToken('__SOCKET_IO_CONFIG_' +
+    Math.floor(Math.random() * Math.floor(100)).toString() + '__');
+
 var SocketFactory = function (config) {
-    return new SocketWrapper(config);
+    return new SocketFrontUpdateService(config);
 };
 
+// @dynamic
 var SocketFrontUpdateModule = /** @class */ (function () {
-    function SocketFrontUpdateModule() {
+    function SocketFrontUpdateModule(parentModule) {
+        if (parentModule) {
+            throw new Error('SocketFrontUpdateModule is already loaded. Import it in the AppModule only');
+        }
     }
     SocketFrontUpdateModule_1 = SocketFrontUpdateModule;
     SocketFrontUpdateModule.forRoot = function (config) {
@@ -141,7 +142,7 @@ var SocketFrontUpdateModule = /** @class */ (function () {
             providers: [
                 { provide: SOCKET_CONFIG_TOKEN, useValue: config },
                 {
-                    provide: SocketWrapper,
+                    provide: SocketFrontUpdateService,
                     useFactory: SocketFactory,
                     deps: [SOCKET_CONFIG_TOKEN]
                 }
@@ -149,8 +150,12 @@ var SocketFrontUpdateModule = /** @class */ (function () {
         };
     };
     var SocketFrontUpdateModule_1;
+    SocketFrontUpdateModule.ctorParameters = function () { return [
+        { type: SocketFrontUpdateModule, decorators: [{ type: Optional }, { type: SkipSelf }] }
+    ]; };
     SocketFrontUpdateModule = SocketFrontUpdateModule_1 = __decorate([
-        NgModule({})
+        NgModule({}),
+        __param(0, Optional()), __param(0, SkipSelf())
     ], SocketFrontUpdateModule);
     return SocketFrontUpdateModule;
 }());
@@ -163,5 +168,5 @@ var SocketFrontUpdateModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { SOCKET_CONFIG_TOKEN, SocketWrapper as Socket, SocketFactory, SocketFrontUpdateModule, SocketFrontUpdateModule as SocketIoModule };
+export { SOCKET_CONFIG_TOKEN, SocketFrontUpdateService as Socket, SocketFactory, SocketFrontUpdateModule, SocketFrontUpdateService, SocketFrontUpdateModule as SocketIoModule };
 //# sourceMappingURL=socket-front-update.js.map

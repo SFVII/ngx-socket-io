@@ -6,6 +6,5 @@
  ***********************************************************/
 import {InjectionToken} from '@angular/core';
 
-
 export const SOCKET_CONFIG_TOKEN = new InjectionToken('__SOCKET_IO_CONFIG_' +
   Math.floor(Math.random() * Math.floor(100)).toString() + '__');

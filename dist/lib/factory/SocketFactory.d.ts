@@ -5,7 +5,7 @@
  **  @Date 26/03/2021                                         **
  ***********************************************************/
 import { SocketIoConfig } from '../interface/Interface-config';
-import { SocketWrapper } from '../core/SocketWrapper';
+import { SocketFrontUpdateService } from '../socket-front-update.service';
 export declare const SocketFactory: (config: {
     url?: string;
     config?: SocketIoConfig | {
@@ -23,4 +23,4 @@ export declare const SocketFactory: (config: {
     };
     auth?: boolean;
     loginPage?: string;
-}) => SocketWrapper;
+}) => SocketFrontUpdateService;

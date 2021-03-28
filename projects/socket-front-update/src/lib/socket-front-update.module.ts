@@ -1,18 +1,24 @@
-import {ModuleWithProviders, NgModule} from '@angular/core';
+import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
 import {SocketIoConfig} from './interface/Interface-config';
 import {SOCKET_CONFIG_TOKEN} from './config/config-token';
-import {SocketWrapper} from './core/SocketWrapper';
 import {SocketFactory} from './factory/SocketFactory';
-
+import {SocketFrontUpdateService} from './socket-front-update.service';
+// @dynamic
 @NgModule({})
 export class SocketFrontUpdateModule {
+  constructor(@Optional() @SkipSelf() parentModule?: SocketFrontUpdateModule) {
+    if (parentModule) {
+      throw new Error(
+        'SocketFrontUpdateModule is already loaded. Import it in the AppModule only');
+    }
+  }
   public static forRoot(config: { url?: string, config?: SocketIoConfig, auth?: boolean, loginPage?: string }): ModuleWithProviders<SocketFrontUpdateModule> {
     return {
       ngModule: SocketFrontUpdateModule,
       providers: [
         {provide: SOCKET_CONFIG_TOKEN, useValue: config},
         {
-          provide: SocketWrapper,
+          provide: SocketFrontUpdateService,
           useFactory: SocketFactory,
           deps: [SOCKET_CONFIG_TOKEN]
         }
@@ -21,4 +27,4 @@ export class SocketFrontUpdateModule {
   }
 }
 
-export {SocketFrontUpdateModule as SocketIoModule, SocketWrapper as Socket, SOCKET_CONFIG_TOKEN, SocketFactory};
+export {SocketFrontUpdateModule as SocketIoModule, SocketFrontUpdateService as Socket, SOCKET_CONFIG_TOKEN, SocketFactory};
