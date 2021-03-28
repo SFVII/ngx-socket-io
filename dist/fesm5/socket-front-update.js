@@ -169,5 +169,5 @@ var SocketIoModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { SocketFrontUpdateService, SocketIoModule, SOCKET_CONFIG_TOKEN as ɵa, SocketFactory as ɵb };
+export { SocketFrontUpdateService as Socket, SocketFrontUpdateService, SocketIoModule, SOCKET_CONFIG_TOKEN as ɵa, SocketFactory as ɵb };
 //# sourceMappingURL=socket-front-update.js.map

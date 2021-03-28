@@ -381,6 +381,7 @@
         return SocketIoModule;
     }());
 
+    exports.Socket = SocketFrontUpdateService;
     exports.SocketFrontUpdateService = SocketFrontUpdateService;
     exports.SocketIoModule = SocketIoModule;
     exports.ɵa = SOCKET_CONFIG_TOKEN;
