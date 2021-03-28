@@ -246,7 +246,6 @@
         extraHeaders: {}
     };
 
-    // @dynamic
     var SocketFrontUpdateService = /** @class */ (function () {
         function SocketFrontUpdateService(Config) {
             var _this = this;
@@ -335,12 +334,6 @@
         return SocketFrontUpdateService;
     }());
 
-    // tslint:disable-next-line:max-line-length
-    function SocketFactory(config) {
-        return new SocketFrontUpdateService(config);
-    }
-    ;
-
     /***********************************************************
      **  @project ngx-front-live-update                       **
      **  @file config-token                                   **
@@ -349,7 +342,10 @@
      ***********************************************************/
     var SOCKET_CONFIG_TOKEN = new core.InjectionToken('__SOCKET_IO_CONFIG_');
 
-    // @dynamic
+    // tslint:disable-next-line:max-line-length
+    function SocketFactory(config) {
+        return new SocketFrontUpdateService(config);
+    }
     var SocketIoModule = /** @class */ (function () {
         function SocketIoModule(parentModule) {
             if (parentModule) {
@@ -385,7 +381,6 @@
     exports.SocketFactory = SocketFactory;
     exports.SocketFrontUpdateService = SocketFrontUpdateService;
     exports.SocketIoModule = SocketIoModule;
-    exports.ɵa = SOCKET_CONFIG_TOKEN;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

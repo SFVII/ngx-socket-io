@@ -6,4 +6,5 @@
  ***********************************************************/
 import { InjectionToken } from '@angular/core';
 import { SocketIoConfig } from '../interface/Interface-config';
-export declare const SOCKET_CONFIG_TOKEN: InjectionToken<SocketIoConfig>;
+declare const SOCKET_CONFIG_TOKEN: InjectionToken<SocketIoConfig>;
+export default SOCKET_CONFIG_TOKEN;
