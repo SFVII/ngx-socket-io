@@ -1,0 +1,22 @@
+{
+  "name": "socket-front-update",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^9.0.7",
+    "@angular/core": "^9.0.7"
+  },
+  "dependencies": {
+    "socket.io-client": "^2.0.4",
+    "tslib": "^1.10.0"
+  },
+  "main": "bundles/socket-front-update.umd.js",
+  "module": "fesm5/socket-front-update.js",
+  "es2015": "fesm2015/socket-front-update.js",
+  "esm5": "esm5/socket-front-update.js",
+  "esm2015": "esm2015/socket-front-update.js",
+  "fesm5": "fesm5/socket-front-update.js",
+  "fesm2015": "fesm2015/socket-front-update.js",
+  "typings": "socket-front-update.d.ts",
+  "metadata": "socket-front-update.metadata.json",
+  "sideEffects": false
+}
