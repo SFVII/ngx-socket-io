@@ -1,9 +1,9 @@
-import { __decorate, __param, __metadata } from 'tslib';
 import { EventEmitter, InjectionToken, Optional, SkipSelf, NgModule } from '@angular/core';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import * as io from 'socket.io-client';
 import io__default from 'socket.io-client';
+import { __decorate, __param, __metadata } from 'tslib';
 
 // @dynamic
 class SocketWrapper {
@@ -140,5 +140,5 @@ SocketIoModule = SocketIoModule_1 = __decorate([
  * Generated bundle index. Do not edit.
  */
 
-export { SOCKET_CONFIG_TOKEN, SocketWrapper as Socket, SocketFactory, SocketIoModule, SocketWrapper };
+export { SOCKET_CONFIG_TOKEN, SocketWrapper as Socket, SocketFactory, SocketIoModule };
 //# sourceMappingURL=socket-front-update.js.map

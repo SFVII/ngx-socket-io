@@ -362,7 +362,6 @@
     exports.Socket = SocketWrapper;
     exports.SocketFactory = SocketFactory;
     exports.SocketIoModule = SocketIoModule;
-    exports.SocketWrapper = SocketWrapper;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

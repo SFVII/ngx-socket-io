@@ -7,4 +7,4 @@ declare class SocketIoModule {
     constructor(parentModule?: SocketIoModule);
     static forRoot(config: SocketIoConfig): ModuleWithProviders;
 }
-export { SocketIoModule, SocketWrapper, SocketWrapper as Socket };
+export { SocketIoModule };

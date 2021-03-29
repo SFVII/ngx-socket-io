@@ -33,5 +33,5 @@ class SocketIoModule {
   }
 }
 
-export {SocketIoModule, SocketWrapper, SocketWrapper as Socket};
+export {SocketIoModule};
 
