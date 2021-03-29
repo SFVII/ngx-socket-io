@@ -16,6 +16,7 @@ export interface SocketConfig {
     query?: any;
     extraHeaders?: any;
     transports?: string[];
+    transportOptions?: any;
 }
 export interface SocketIoConfig {
     socket_path?: string;

@@ -254,8 +254,6 @@
             this.Config = Config;
             this.tokenUpdater = new core.EventEmitter();
             this.subscribersCounter = 0;
-            // tslint:disable-next-line:max-line-length
-            //private Config: SocketIoConfig;
             this.SocketConfig = DefaultSocketConfig;
             this.Config = Config;
             if (!this.SocketConfig) {
@@ -273,11 +271,32 @@
             else {
                 this.socket = this.connect();
                 this.tokenUpdater.subscribe(function (token) {
+                    var e_1, _a;
                     _this.disconnect();
                     console.log('Got a token', token);
                     if (token) {
                         if (!_this.SocketConfig.extraHeaders) {
                             _this.SocketConfig.extraHeaders = {};
+                        }
+                        if (!_this.SocketConfig.transportOptions) {
+                            _this.SocketConfig.transportOptions = {};
+                        }
+                        try {
+                            for (var _b = __values(_this.SocketConfig.transports), _c = _b.next(); !_c.done; _c = _b.next()) {
+                                var en = _c.value;
+                                _this.SocketConfig.transportOptions[en] = {
+                                    extraHeaders: {
+                                        Authorization: "Baerer " + token
+                                    }
+                                };
+                            }
+                        }
+                        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                        finally {
+                            try {
+                                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+                            }
+                            finally { if (e_1) throw e_1.error; }
                         }
                         _this.SocketConfig.extraHeaders.Authorization = "Baerer " + token;
                         _this.socket = _this.connect();

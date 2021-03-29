@@ -33,8 +33,6 @@ let SocketWrapper = class SocketWrapper {
         this.Config = Config;
         this.tokenUpdater = new EventEmitter();
         this.subscribersCounter = 0;
-        // tslint:disable-next-line:max-line-length
-        //private Config: SocketIoConfig;
         this.SocketConfig = DefaultSocketConfig;
         this.Config = Config;
         if (!this.SocketConfig) {
@@ -57,6 +55,16 @@ let SocketWrapper = class SocketWrapper {
                 if (token) {
                     if (!this.SocketConfig.extraHeaders) {
                         this.SocketConfig.extraHeaders = {};
+                    }
+                    if (!this.SocketConfig.transportOptions) {
+                        this.SocketConfig.transportOptions = {};
+                    }
+                    for (let en of this.SocketConfig.transports) {
+                        this.SocketConfig.transportOptions[en] = {
+                            extraHeaders: {
+                                Authorization: `Baerer ${token}`
+                            }
+                        };
                     }
                     this.SocketConfig.extraHeaders.Authorization = `Baerer ${token}`;
                     this.socket = this.connect();
