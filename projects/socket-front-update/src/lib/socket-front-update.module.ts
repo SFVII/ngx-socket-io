@@ -7,7 +7,7 @@ export function SocketFactory(config: { url?: string, config?: SocketIoConfig, a
   return new SocketWrapper(config.config, config.url, config.auth, config.loginPage);
 }
 
-export const SOCKET_CONFIG_TOKEN = new InjectionToken<SocketIoConfig>('__SOCKET_IO_CONFIG_');
+export const SOCKET_CONFIG_TOKEN = new InjectionToken<{ config?: SocketIoConfig; url?: string; auth?: boolean; loginPage?: string }>('__SOCKET_IO_CONFIG_');
 
 @NgModule({})
 class SocketIoModule {
