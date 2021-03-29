@@ -1,9 +1,9 @@
-import { EventEmitter, InjectionToken, Optional, SkipSelf, NgModule } from '@angular/core';
+import { __decorate, __metadata, __param } from 'tslib';
+import { EventEmitter, Injectable, InjectionToken, Optional, SkipSelf, NgModule } from '@angular/core';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import * as io from 'socket.io-client';
 import io__default from 'socket.io-client';
-import { __decorate, __param, __metadata } from 'tslib';
 
 // @dynamic
 var SocketWrapper = /** @class */ (function () {
@@ -98,6 +98,13 @@ var SocketWrapper = /** @class */ (function () {
             });
         }
     };
+    SocketWrapper.ctorParameters = function () { return [
+        { type: undefined }
+    ]; };
+    SocketWrapper = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [Object])
+    ], SocketWrapper);
     return SocketWrapper;
 }());
 

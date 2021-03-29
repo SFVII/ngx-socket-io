@@ -1,12 +1,12 @@
-import { EventEmitter, InjectionToken, Optional, SkipSelf, NgModule } from '@angular/core';
+import { __decorate, __metadata, __param } from 'tslib';
+import { EventEmitter, Injectable, InjectionToken, Optional, SkipSelf, NgModule } from '@angular/core';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import * as io from 'socket.io-client';
 import io__default from 'socket.io-client';
-import { __decorate, __param, __metadata } from 'tslib';
 
 // @dynamic
-class SocketWrapper {
+let SocketWrapper = class SocketWrapper {
     constructor(Config) {
         this.tokenUpdater = new EventEmitter();
         this.subscribersCounter = 0;
@@ -95,7 +95,14 @@ class SocketWrapper {
             });
         }
     }
-}
+};
+SocketWrapper.ctorParameters = () => [
+    { type: undefined }
+];
+SocketWrapper = __decorate([
+    Injectable(),
+    __metadata("design:paramtypes", [Object])
+], SocketWrapper);
 
 var SocketIoModule_1;
 // tslint:disable-next-line:max-line-length

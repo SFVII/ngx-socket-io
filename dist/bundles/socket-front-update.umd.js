@@ -318,6 +318,13 @@
                 });
             }
         };
+        SocketWrapper.ctorParameters = function () { return [
+            { type: undefined }
+        ]; };
+        SocketWrapper = __decorate([
+            core.Injectable(),
+            __metadata("design:paramtypes", [Object])
+        ], SocketWrapper);
         return SocketWrapper;
     }());
 
