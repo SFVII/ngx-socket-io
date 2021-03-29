@@ -52,6 +52,8 @@ let SocketWrapper = class SocketWrapper {
         else {
             this.socket = this.connect();
             this.tokenUpdater.subscribe((token) => {
+                this.disconnect();
+                console.log('Got a token', token);
                 if (token) {
                     if (!this.SocketConfig.extraHeaders) {
                         this.SocketConfig.extraHeaders = {};
@@ -82,6 +84,7 @@ let SocketWrapper = class SocketWrapper {
     }
     ;
     connect() {
+        console.log('Config', this.SocketConfig);
         const ioSocket = io__default ? io__default : io;
         return ioSocket(this.url, this.SocketConfig).connect();
     }

@@ -273,6 +273,8 @@
             else {
                 this.socket = this.connect();
                 this.tokenUpdater.subscribe(function (token) {
+                    _this.disconnect();
+                    console.log('Got a token', token);
                     if (token) {
                         if (!_this.SocketConfig.extraHeaders) {
                             _this.SocketConfig.extraHeaders = {};
@@ -303,6 +305,7 @@
         };
         ;
         SocketWrapper.prototype.connect = function () {
+            console.log('Config', this.SocketConfig);
             var ioSocket = io__default__default ? io__default__default : io__default;
             return ioSocket(this.url, this.SocketConfig).connect();
         };

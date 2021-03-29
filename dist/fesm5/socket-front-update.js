@@ -53,6 +53,8 @@ var SocketWrapper = /** @class */ (function () {
         else {
             this.socket = this.connect();
             this.tokenUpdater.subscribe(function (token) {
+                _this.disconnect();
+                console.log('Got a token', token);
                 if (token) {
                     if (!_this.SocketConfig.extraHeaders) {
                         _this.SocketConfig.extraHeaders = {};
@@ -83,6 +85,7 @@ var SocketWrapper = /** @class */ (function () {
     };
     ;
     SocketWrapper.prototype.connect = function () {
+        console.log('Config', this.SocketConfig);
         var ioSocket = io__default ? io__default : io;
         return ioSocket(this.url, this.SocketConfig).connect();
     };
