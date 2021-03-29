@@ -26,7 +26,7 @@ class SocketIoModule {
       providers: [
         //SocketWrapper,
         {provide: '__SocketWrapper__', useValue: config},
-        SocketWrapper
+         SocketWrapper
       ]
     };
   }

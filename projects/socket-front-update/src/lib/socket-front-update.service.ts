@@ -9,8 +9,8 @@ import {DefaultSocketConfig} from './config/default';
 // @dynamic
 @Injectable()
 export class SocketWrapper {
-  public tokenUpdater: any = new EventEmitter();
-  public socket: any;
+  public tokenUpdater?: any = new EventEmitter();
+  public socket?: any;
   public socket_path?: string; // default = '/socket.io'
   public socket_reconnection?: boolean; // default true
   public socket_reconnectionAttempts?: number; // default Infinity
@@ -22,10 +22,10 @@ export class SocketWrapper {
   public socket_query?: any; // default {}
   public socket_extraHeaders?: any; // default {}
   public socket_transports?: string[];
-  public url: string;
-  public loginPage: string;
-  public auth: boolean;
-  private subscribersCounter: number = 0;
+  public url?: string;
+  public loginPage?: string;
+  public auth?: boolean;
+  private subscribersCounter?: number = 0;
 
   // tslint:disable-next-line:max-line-length
   //private Config: SocketIoConfig;
@@ -92,7 +92,7 @@ export class SocketWrapper {
   };
 
   connect() {
-    console.log('Config', this.SocketConfig)
+    console.log('Config', this.SocketConfig);
     const ioSocket = (io as any).default ? (io as any).default : io;
     return ioSocket(this.url, this.SocketConfig).connect();
   }

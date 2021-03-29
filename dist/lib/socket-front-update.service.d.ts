@@ -2,8 +2,8 @@ import { SocketIoConfig } from './interface/Interface-config';
 import { Observable } from 'rxjs';
 export declare class SocketWrapper {
     private Config;
-    tokenUpdater: any;
-    socket: any;
+    tokenUpdater?: any;
+    socket?: any;
     socket_path?: string;
     socket_reconnection?: boolean;
     socket_reconnectionAttempts?: number;
@@ -15,10 +15,10 @@ export declare class SocketWrapper {
     socket_query?: any;
     socket_extraHeaders?: any;
     socket_transports?: string[];
-    url: string;
-    loginPage: string;
-    auth: boolean;
-    private subscribersCounter;
+    url?: string;
+    loginPage?: string;
+    auth?: boolean;
+    private subscribersCounter?;
     private readonly SocketConfig;
     constructor(Config: SocketIoConfig);
     roomData(name: string, callback: () => void): void;
