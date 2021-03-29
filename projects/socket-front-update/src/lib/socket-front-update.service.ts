@@ -1,4 +1,4 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {EventEmitter, Inject, Injectable} from '@angular/core';
 import {SocketConfig, SocketIoConfig} from './interface/Interface-config';
 import {Observable} from 'rxjs';
 import {share} from 'rxjs/operators';
@@ -29,7 +29,7 @@ export class SocketWrapper {
   private Config: SocketIoConfig;
   private SocketConfig: SocketConfig;
 
-  constructor(Config: SocketIoConfig) {
+  constructor(@Inject('__SOCKET_IO_CONFIG_') Config: SocketIoConfig) {
     this.Config = Config;
     for (let key in Config) {
       if (key.includes('socket_')) {

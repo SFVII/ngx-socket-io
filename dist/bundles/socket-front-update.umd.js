@@ -319,10 +319,11 @@
             }
         };
         SocketWrapper.ctorParameters = function () { return [
-            { type: undefined }
+            { type: undefined, decorators: [{ type: core.Inject, args: ['__SOCKET_IO_CONFIG_',] }] }
         ]; };
         SocketWrapper = __decorate([
             core.Injectable(),
+            __param(0, core.Inject('__SOCKET_IO_CONFIG_')),
             __metadata("design:paramtypes", [Object])
         ], SocketWrapper);
         return SocketWrapper;
@@ -358,7 +359,9 @@
             { type: SocketIoModule, decorators: [{ type: core.Optional }, { type: core.SkipSelf }] }
         ]; };
         SocketIoModule = SocketIoModule_1 = __decorate([
-            core.NgModule({}),
+            core.NgModule({
+                providers: [SocketWrapper]
+            }),
             __param(0, core.Optional()), __param(0, core.SkipSelf()),
             __metadata("design:paramtypes", [SocketIoModule])
         ], SocketIoModule);

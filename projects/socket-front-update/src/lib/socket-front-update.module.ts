@@ -9,7 +9,9 @@ export function SocketFactory(config: SocketIoConfig) {
 
 export const SOCKET_CONFIG_TOKEN = new InjectionToken<SocketIoConfig>('__SOCKET_IO_CONFIG_');
 
-@NgModule({})
+@NgModule({
+  providers : [SocketWrapper]
+})
 class SocketIoModule {
   constructor(@Optional() @SkipSelf() parentModule?: SocketIoModule) {
     if (parentModule) {
@@ -18,7 +20,7 @@ class SocketIoModule {
     }
   }
 
-  public static forRoot(config: SocketIoConfig): ModuleWithProviders {
+  public static forRoot(config: SocketWrapper): ModuleWithProviders<SocketIoModule> {
     return {
       ngModule: SocketIoModule,
       providers: [

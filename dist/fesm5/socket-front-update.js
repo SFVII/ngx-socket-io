@@ -1,5 +1,5 @@
-import { __decorate, __metadata, __param } from 'tslib';
-import { EventEmitter, Injectable, InjectionToken, Optional, SkipSelf, NgModule } from '@angular/core';
+import { __decorate, __param, __metadata } from 'tslib';
+import { EventEmitter, Inject, Injectable, InjectionToken, Optional, SkipSelf, NgModule } from '@angular/core';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import * as io from 'socket.io-client';
@@ -99,10 +99,11 @@ var SocketWrapper = /** @class */ (function () {
         }
     };
     SocketWrapper.ctorParameters = function () { return [
-        { type: undefined }
+        { type: undefined, decorators: [{ type: Inject, args: ['__SOCKET_IO_CONFIG_',] }] }
     ]; };
     SocketWrapper = __decorate([
         Injectable(),
+        __param(0, Inject('__SOCKET_IO_CONFIG_')),
         __metadata("design:paramtypes", [Object])
     ], SocketWrapper);
     return SocketWrapper;
@@ -138,7 +139,9 @@ var SocketIoModule = /** @class */ (function () {
         { type: SocketIoModule, decorators: [{ type: Optional }, { type: SkipSelf }] }
     ]; };
     SocketIoModule = SocketIoModule_1 = __decorate([
-        NgModule({}),
+        NgModule({
+            providers: [SocketWrapper]
+        }),
         __param(0, Optional()), __param(0, SkipSelf()),
         __metadata("design:paramtypes", [SocketIoModule])
     ], SocketIoModule);
