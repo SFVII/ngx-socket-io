@@ -50,6 +50,7 @@ let SocketWrapper = class SocketWrapper {
             this.socket = this.connect();
         }
         else {
+            this.socket = this.connect();
             this.tokenUpdater.subscribe((token) => {
                 if (token) {
                     if (!this.SocketConfig.extraHeaders) {

@@ -271,6 +271,7 @@
                 this.socket = this.connect();
             }
             else {
+                this.socket = this.connect();
                 this.tokenUpdater.subscribe(function (token) {
                     if (token) {
                         if (!_this.SocketConfig.extraHeaders) {

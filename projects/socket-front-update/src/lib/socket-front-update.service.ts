@@ -45,6 +45,7 @@ export class SocketWrapper {
     if ((Config && !Config.auth || !Config)) {
       this.socket = this.connect();
     } else {
+      this.socket = this.connect();
       this.tokenUpdater.subscribe((token: string) => {
         if (token) {
           if (!this.SocketConfig.extraHeaders) {
