@@ -11,7 +11,7 @@ export declare const SOCKET_CONFIG_TOKEN: InjectionToken<SocketIoConfig>;
 declare class SocketIoModule {
     constructor(parentModule?: SocketIoModule);
     static forRoot(config: {
-        config?: SocketWrapper;
+        config?: SocketIoConfig;
         url?: string;
         auth?: boolean;
         loginPage?: string;
