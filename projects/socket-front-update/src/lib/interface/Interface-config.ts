@@ -22,6 +22,7 @@ export interface SocketConfig {
   query?: any; // default {}
   extraHeaders?: any; // default {}
   transports?: string[];
+  transportOptions?: any;
 }
 
 export interface SocketIoConfig {
