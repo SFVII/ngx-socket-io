@@ -7,7 +7,12 @@ export declare function SocketFactory(config: {
     auth?: boolean;
     loginPage?: string;
 }): SocketWrapper;
-export declare const SOCKET_CONFIG_TOKEN: InjectionToken<SocketIoConfig>;
+export declare const SOCKET_CONFIG_TOKEN: InjectionToken<{
+    config?: SocketIoConfig;
+    url?: string;
+    auth?: boolean;
+    loginPage?: string;
+}>;
 declare class SocketIoModule {
     constructor(parentModule?: SocketIoModule);
     static forRoot(config: {
