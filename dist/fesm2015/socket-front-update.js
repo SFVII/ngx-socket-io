@@ -26,6 +26,7 @@ const DefaultSocketConfig = {
     extraHeaders: {}
 };
 
+// @dynamic
 let SocketWrapper = class SocketWrapper {
     constructor(Config) {
         this.tokenUpdater = new EventEmitter();

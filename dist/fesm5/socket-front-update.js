@@ -26,6 +26,7 @@ var DefaultSocketConfig = {
     extraHeaders: {}
 };
 
+// @dynamic
 var SocketWrapper = /** @class */ (function () {
     function SocketWrapper(Config) {
         var _this = this;

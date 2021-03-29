@@ -6,7 +6,7 @@ import {share} from 'rxjs/operators';
 import * as io from 'socket.io-client';
 import { Inject } from '@angular/core';
 
-
+// @dynamic
 export class SocketWrapper {
 
   public tokenUpdater: any = new EventEmitter();
