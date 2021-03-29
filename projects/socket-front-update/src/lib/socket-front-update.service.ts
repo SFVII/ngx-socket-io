@@ -1,5 +1,5 @@
 import {EventEmitter} from '@angular/core';
-import {SocketIoConfig} from './interface/Interface-config';
+import {SocketIoConfig, SocketConfig} from './interface/Interface-config';
 import {DefaultSocketConfig} from './config/default';
 import {Observable} from 'rxjs';
 import {share} from 'rxjs/operators';
@@ -14,7 +14,7 @@ export class SocketWrapper {
   private url: string;
   // tslint:disable-next-line:max-line-length
   private Config: SocketIoConfig;
-  private SocketConfig: any;
+  private SocketConfig: SocketConfig;
 
   constructor(Config: SocketIoConfig) {
     this.Config = Config;
