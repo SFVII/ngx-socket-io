@@ -55,7 +55,7 @@ var SocketWrapper = /** @class */ (function () {
             this.tokenUpdater.subscribe(function (token) {
                 var e_1, _a;
                 _this.disconnect();
-                console.log('Got a token', token);
+                //console.log('Got a token', token);
                 if (token) {
                     if (!_this.SocketConfig.extraHeaders) {
                         _this.SocketConfig.extraHeaders = {};
@@ -81,7 +81,7 @@ var SocketWrapper = /** @class */ (function () {
                         finally { if (e_1) throw e_1.error; }
                     }
                     _this.SocketConfig.extraHeaders.Authorization = "Baerer " + token;
-                    _this.SocketConfig.extraHeaders.Authorization = "Baerer " + token;
+                    _this.SocketConfig.query.token = "" + token;
                     _this.socket = _this.connect();
                     if (Config && Config.loginPage) {
                         _this.redirectLogin(Config.loginPage);

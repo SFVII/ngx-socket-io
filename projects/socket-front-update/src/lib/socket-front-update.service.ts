@@ -48,7 +48,7 @@ export class SocketWrapper {
       this.socket = this.connect();
       this.tokenUpdater.subscribe((token: string) => {
         this.disconnect();
-        console.log('Got a token', token);
+        //console.log('Got a token', token);
         if (token) {
           if (!this.SocketConfig.extraHeaders) {
             this.SocketConfig.extraHeaders = {};
@@ -64,7 +64,7 @@ export class SocketWrapper {
             };
           }
           this.SocketConfig.extraHeaders.Authorization = `Baerer ${token}`;
-          this.SocketConfig.extraHeaders.Authorization = `Baerer ${token}`;
+          this.SocketConfig.query.token = `${token}`;
           this.socket = this.connect();
           if (Config && Config.loginPage) {
             this.redirectLogin(Config.loginPage);
