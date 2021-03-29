@@ -25,12 +25,11 @@ class SocketIoModule {
       ngModule: SocketIoModule,
       providers: [
         SocketWrapper,
-        {provide: SOCKET_CONFIG_TOKEN, useValue: config}
-        /*  {
-            provide: SocketWrapper,
-            useFactory: SocketFactory,
-            deps: [SOCKET_CONFIG_TOKEN]
-          }*/
+        {provide: SOCKET_CONFIG_TOKEN, useValue: config},
+        {
+          provide: SocketWrapper,
+          deps: [SOCKET_CONFIG_TOKEN]
+        }
       ]
     };
   }

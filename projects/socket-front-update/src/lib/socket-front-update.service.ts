@@ -6,9 +6,7 @@ import * as io from 'socket.io-client';
 import {SOCKET_CONFIG_TOKEN} from './socket-front-update.module';
 
 // @dynamic
-@Injectable({
-  providedIn : 'root'
-})
+@Injectable()
 export class SocketWrapper {
   public tokenUpdater: any = new EventEmitter();
   public socket: any;

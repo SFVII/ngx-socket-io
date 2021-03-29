@@ -242,12 +242,11 @@
                 ngModule: SocketIoModule_1,
                 providers: [
                     SocketWrapper,
-                    { provide: SOCKET_CONFIG_TOKEN, useValue: config }
-                    /*  {
+                    { provide: SOCKET_CONFIG_TOKEN, useValue: config },
+                    {
                         provide: SocketWrapper,
-                        useFactory: SocketFactory,
                         deps: [SOCKET_CONFIG_TOKEN]
-                      }*/
+                    }
                 ]
             };
         };
@@ -362,11 +361,8 @@
         SocketWrapper.ctorParameters = function () { return [
             { type: undefined, decorators: [{ type: core.Inject, args: [SOCKET_CONFIG_TOKEN,] }] }
         ]; };
-        SocketWrapper.ɵprov = core.ɵɵdefineInjectable({ factory: function SocketWrapper_Factory() { return new SocketWrapper(core.ɵɵinject(SOCKET_CONFIG_TOKEN)); }, token: SocketWrapper, providedIn: "root" });
         SocketWrapper = __decorate([
-            core.Injectable({
-                providedIn: 'root'
-            }),
+            core.Injectable(),
             __param(0, core.Inject(SOCKET_CONFIG_TOKEN)),
             __metadata("design:paramtypes", [Object])
         ], SocketWrapper);

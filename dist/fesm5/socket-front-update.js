@@ -1,5 +1,5 @@
 import { __decorate, __param, __metadata } from 'tslib';
-import { InjectionToken, Optional, SkipSelf, NgModule, EventEmitter, Inject, ɵɵdefineInjectable, ɵɵinject, Injectable } from '@angular/core';
+import { InjectionToken, Optional, SkipSelf, NgModule, EventEmitter, Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import * as io from 'socket.io-client';
@@ -22,12 +22,11 @@ var SocketIoModule = /** @class */ (function () {
             ngModule: SocketIoModule_1,
             providers: [
                 SocketWrapper,
-                { provide: SOCKET_CONFIG_TOKEN, useValue: config }
-                /*  {
+                { provide: SOCKET_CONFIG_TOKEN, useValue: config },
+                {
                     provide: SocketWrapper,
-                    useFactory: SocketFactory,
                     deps: [SOCKET_CONFIG_TOKEN]
-                  }*/
+                }
             ]
         };
     };
@@ -142,11 +141,8 @@ var SocketWrapper = /** @class */ (function () {
     SocketWrapper.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: Inject, args: [SOCKET_CONFIG_TOKEN,] }] }
     ]; };
-    SocketWrapper.ɵprov = ɵɵdefineInjectable({ factory: function SocketWrapper_Factory() { return new SocketWrapper(ɵɵinject(SOCKET_CONFIG_TOKEN)); }, token: SocketWrapper, providedIn: "root" });
     SocketWrapper = __decorate([
-        Injectable({
-            providedIn: 'root'
-        }),
+        Injectable(),
         __param(0, Inject(SOCKET_CONFIG_TOKEN)),
         __metadata("design:paramtypes", [Object])
     ], SocketWrapper);
