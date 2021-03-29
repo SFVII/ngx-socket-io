@@ -19,7 +19,7 @@ export declare class SocketWrapper {
     loginPage: string;
     auth: boolean;
     private subscribersCounter;
-    private SocketConfig;
+    private readonly SocketConfig;
     constructor(Config: SocketIoConfig);
     roomData(name: string, callback: () => void): void;
     of(namespace: string): void;

@@ -5,6 +5,27 @@ import { share } from 'rxjs/operators';
 import * as io from 'socket.io-client';
 import io__default from 'socket.io-client';
 
+/***********************************************************
+ **  @project ngx-front-live-update                              **
+ **  @file default                                         **
+ **  @author Brice Daupiard <brice.daupiard@smartiiz.com>  **
+ **  @Date 26/03/2021                                         **
+ ***********************************************************/
+const DefaultSocketConfig = {
+    url: '',
+    path: '/socket.io',
+    reconnection: true,
+    reconnectionAttempts: Infinity,
+    reconnectionDelay: 1000,
+    reconnectionDelayMax: 5000,
+    randomizationFactor: 0.5,
+    timeout: 20000,
+    autoConnect: true,
+    query: {},
+    transports: ['polling', 'websocket'],
+    extraHeaders: {}
+};
+
 //import {SOCKET_CONFIG_TOKEN} from './socket-front-update.module';
 // @dynamic
 let SocketWrapper = class SocketWrapper {
@@ -12,7 +33,13 @@ let SocketWrapper = class SocketWrapper {
         this.Config = Config;
         this.tokenUpdater = new EventEmitter();
         this.subscribersCounter = 0;
+        // tslint:disable-next-line:max-line-length
+        //private Config: SocketIoConfig;
+        this.SocketConfig = DefaultSocketConfig;
         this.Config = Config;
+        if (!this.SocketConfig) {
+            this.SocketConfig = {};
+        }
         for (let key in Config) {
             if (key.includes('socket_')) {
                 this.SocketConfig[key.replace('socket_', '')] = Config[key];
