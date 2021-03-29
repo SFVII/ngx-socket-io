@@ -362,8 +362,11 @@
         SocketWrapper.ctorParameters = function () { return [
             { type: undefined, decorators: [{ type: core.Inject, args: [SOCKET_CONFIG_TOKEN,] }] }
         ]; };
+        SocketWrapper.ɵprov = core.ɵɵdefineInjectable({ factory: function SocketWrapper_Factory() { return new SocketWrapper(core.ɵɵinject(SOCKET_CONFIG_TOKEN)); }, token: SocketWrapper, providedIn: "root" });
         SocketWrapper = __decorate([
-            core.Injectable(),
+            core.Injectable({
+                providedIn: 'root'
+            }),
             __param(0, core.Inject(SOCKET_CONFIG_TOKEN)),
             __metadata("design:paramtypes", [Object])
         ], SocketWrapper);
