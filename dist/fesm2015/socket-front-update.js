@@ -5,34 +5,17 @@ import { share } from 'rxjs/operators';
 import * as io from 'socket.io-client';
 import io__default from 'socket.io-client';
 
-/***********************************************************
- **  @project ngx-front-live-update                              **
- **  @file default                                         **
- **  @author Brice Daupiard <brice.daupiard@smartiiz.com>  **
- **  @Date 26/03/2021                                         **
- ***********************************************************/
-const DefaultSocketConfig = {
-    url: '',
-    path: '/socket.io',
-    reconnection: true,
-    reconnectionAttempts: Infinity,
-    reconnectionDelay: 1000,
-    reconnectionDelayMax: 5000,
-    randomizationFactor: 0.5,
-    timeout: 20000,
-    autoConnect: true,
-    query: {},
-    transports: ['polling', 'websocket'],
-    extraHeaders: {}
-};
-
 // @dynamic
 class SocketWrapper {
     constructor(Config) {
         this.tokenUpdater = new EventEmitter();
         this.subscribersCounter = 0;
         this.Config = Config;
-        this.SocketConfig = (!Config || Config && !Config.SocketConfig) ? DefaultSocketConfig : Config.SocketConfig;
+        for (let key in Config) {
+            if (key.includes('socket_')) {
+                this.SocketConfig[key.replace('socket_', '')] = Config[key];
+            }
+        }
         this.url = (!Config || Config && !Config.url) ? '' : Config.url;
         if ((Config && !Config.auth || !Config)) {
             this.socket = this.connect();
@@ -40,6 +23,9 @@ class SocketWrapper {
         else {
             this.tokenUpdater.subscribe((token) => {
                 if (token) {
+                    if (!this.SocketConfig.extraHeaders) {
+                        this.SocketConfig.extraHeaders = {};
+                    }
                     this.SocketConfig.extraHeaders.Authorization = `Baerer ${token}`;
                     this.socket = this.connect();
                     if (Config && Config.loginPage) {

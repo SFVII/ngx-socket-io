@@ -18,7 +18,17 @@ export interface SocketConfig {
     transports?: string[];
 }
 export interface SocketIoConfig {
-    SocketConfig: SocketConfig;
+    socket_path?: string;
+    socket_reconnection?: boolean;
+    socket_reconnectionAttempts?: number;
+    socket_reconnectionDelay?: number;
+    socket_reconnectionDelayMax?: number;
+    socket_randomizationFactor?: number;
+    socket_timeout?: number;
+    socket_autoConnect?: boolean;
+    socket_query?: any;
+    socket_extraHeaders?: any;
+    socket_transports?: string[];
     url?: string;
     loginPage: string;
     auth: boolean;

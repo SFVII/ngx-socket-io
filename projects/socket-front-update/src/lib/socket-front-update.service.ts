@@ -1,30 +1,49 @@
 import {EventEmitter} from '@angular/core';
-import {SocketIoConfig, SocketConfig} from './interface/Interface-config';
-import {DefaultSocketConfig} from './config/default';
+import {SocketConfig, SocketIoConfig} from './interface/Interface-config';
 import {Observable} from 'rxjs';
 import {share} from 'rxjs/operators';
 import * as io from 'socket.io-client';
 
 // @dynamic
 export class SocketWrapper {
-
   public tokenUpdater: any = new EventEmitter();
   public socket: any;
-  private subscribersCounter: number = 0;
+  private socket_path?: string; // default = '/socket.io'
+  private socket_reconnection?: boolean; // default true
+  private socket_reconnectionAttempts?: number; // default Infinity
+  private socket_reconnectionDelay?: number; // default 1000
+  private socket_reconnectionDelayMax?: number; // default 5000
+  private socket_randomizationFactor?: number; // default 0.5,
+  private socket_timeout?: number; // default 20000,
+  private socket_autoConnect?: boolean; // default true,
+  private socket_query?: any; // default {}
+  private socket_extraHeaders?: any; // default {}
+  private socket_transports?: string[];
   private url: string;
+  private loginPage: string;
+  private auth: boolean;
+  private subscribersCounter: number = 0;
+
   // tslint:disable-next-line:max-line-length
   private Config: SocketIoConfig;
   private SocketConfig: SocketConfig;
 
   constructor(Config: SocketIoConfig) {
     this.Config = Config;
-    this.SocketConfig = (!Config || Config && !Config.SocketConfig) ? DefaultSocketConfig : Config.SocketConfig;
+    for (let key in Config) {
+      if (key.includes('socket_')) {
+        this.SocketConfig[key.replace('socket_', '')] = Config[key];
+      }
+    }
     this.url = (!Config || Config && !Config.url) ? '' : Config.url;
     if ((Config && !Config.auth || !Config)) {
       this.socket = this.connect();
     } else {
       this.tokenUpdater.subscribe((token: string) => {
         if (token) {
+          if (!this.SocketConfig.extraHeaders) {
+            this.SocketConfig.extraHeaders = {};
+          }
           this.SocketConfig.extraHeaders.Authorization = `Baerer ${token}`;
           this.socket = this.connect();
           if (Config && Config.loginPage) {

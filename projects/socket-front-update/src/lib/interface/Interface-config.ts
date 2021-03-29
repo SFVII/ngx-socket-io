@@ -25,7 +25,17 @@ export interface SocketConfig {
 }
 
 export interface SocketIoConfig {
-  SocketConfig: SocketConfig;
+  socket_path?: string; // default = '/socket.io'
+  socket_reconnection?: boolean; // default true
+  socket_reconnectionAttempts?: number; // default Infinity
+  socket_reconnectionDelay?: number; // default 1000
+  socket_reconnectionDelayMax?: number; // default 5000
+  socket_randomizationFactor?: number; // default 0.5,
+  socket_timeout?: number; // default 20000,
+  socket_autoConnect?: boolean; // default true,
+  socket_query?: any; // default {}
+  socket_extraHeaders?: any; // default {}
+  socket_transports?: string[];
   url?: string;
   loginPage: string;
   auth: boolean;
