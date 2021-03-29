@@ -1,5 +1,5 @@
 import { __decorate, __param, __metadata } from 'tslib';
-import { EventEmitter, Optional, InjectionToken, SkipSelf, NgModule } from '@angular/core';
+import { EventEmitter, InjectionToken, Optional, SkipSelf, NgModule } from '@angular/core';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import * as io from 'socket.io-client';
@@ -28,12 +28,12 @@ var DefaultSocketConfig = {
 
 // @dynamic
 var SocketWrapper = /** @class */ (function () {
-    function SocketWrapper(config, url, auth, loginPage) {
+    function SocketWrapper(Config, url, auth, loginPage) {
         var _this = this;
         this.tokenUpdater = new EventEmitter();
         this.subscribersCounter = 0;
         this.loginPage = null;
-        this.config = !config ? DefaultSocketConfig : config;
+        this.config = !Config ? DefaultSocketConfig : Config;
         this.url = !url ? '' : url;
         if (auth) {
             this.socket = this.connect();
@@ -110,10 +110,6 @@ var SocketWrapper = /** @class */ (function () {
             });
         }
     };
-    SocketWrapper = __decorate([
-        __param(0, Optional()),
-        __metadata("design:paramtypes", [Object, String, Boolean, String])
-    ], SocketWrapper);
     return SocketWrapper;
 }());
 

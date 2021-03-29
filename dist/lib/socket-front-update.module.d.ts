@@ -16,10 +16,10 @@ export declare const SOCKET_CONFIG_TOKEN: InjectionToken<{
 declare class SocketIoModule {
     constructor(parentModule?: SocketIoModule);
     static forRoot(config: {
-        config?: SocketIoConfig;
-        url?: string;
-        auth?: boolean;
-        loginPage?: string;
+        config: SocketIoConfig;
+        url: string;
+        auth: boolean;
+        loginPage: string;
     }): ModuleWithProviders;
 }
 export { SocketIoModule, SocketWrapper, SocketWrapper as Socket };

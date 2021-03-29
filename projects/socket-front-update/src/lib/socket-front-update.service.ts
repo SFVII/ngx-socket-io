@@ -17,8 +17,8 @@ export class SocketWrapper {
   private auth: false;
   private loginPage: string = null;
 
-  constructor(@Optional() config?: SocketIoConfig, url?: string, auth?: boolean, loginPage?: string) {
-    this.config = !config ? DefaultSocketConfig : config;
+  constructor(Config: SocketIoConfig, url: string, auth: boolean, loginPage: string) {
+    this.config = !Config ? DefaultSocketConfig : Config;
     this.url = !url ? '' : url;
     if (auth) {
       this.socket = this.connect();

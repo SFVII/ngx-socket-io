@@ -8,7 +8,7 @@ export declare class SocketWrapper {
     private config;
     private auth;
     private loginPage;
-    constructor(config?: SocketIoConfig, url?: string, auth?: boolean, loginPage?: string);
+    constructor(Config: SocketIoConfig, url: string, auth: boolean, loginPage: string);
     roomData(name: string, callback: () => void): void;
     of(namespace: string): void;
     on(eventName: string, callback: (data: any) => void): void;

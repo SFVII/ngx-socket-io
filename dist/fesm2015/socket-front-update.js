@@ -1,5 +1,5 @@
 import { __decorate, __param, __metadata } from 'tslib';
-import { EventEmitter, Optional, InjectionToken, SkipSelf, NgModule } from '@angular/core';
+import { EventEmitter, InjectionToken, Optional, SkipSelf, NgModule } from '@angular/core';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import * as io from 'socket.io-client';
@@ -27,12 +27,12 @@ const DefaultSocketConfig = {
 };
 
 // @dynamic
-let SocketWrapper = class SocketWrapper {
-    constructor(config, url, auth, loginPage) {
+class SocketWrapper {
+    constructor(Config, url, auth, loginPage) {
         this.tokenUpdater = new EventEmitter();
         this.subscribersCounter = 0;
         this.loginPage = null;
-        this.config = !config ? DefaultSocketConfig : config;
+        this.config = !Config ? DefaultSocketConfig : Config;
         this.url = !url ? '' : url;
         if (auth) {
             this.socket = this.connect();
@@ -107,11 +107,7 @@ let SocketWrapper = class SocketWrapper {
             });
         }
     }
-};
-SocketWrapper = __decorate([
-    __param(0, Optional()),
-    __metadata("design:paramtypes", [Object, String, Boolean, String])
-], SocketWrapper);
+}
 
 var SocketIoModule_1;
 // tslint:disable-next-line:max-line-length

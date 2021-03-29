@@ -248,12 +248,12 @@
 
     // @dynamic
     var SocketWrapper = /** @class */ (function () {
-        function SocketWrapper(config, url, auth, loginPage) {
+        function SocketWrapper(Config, url, auth, loginPage) {
             var _this = this;
             this.tokenUpdater = new core.EventEmitter();
             this.subscribersCounter = 0;
             this.loginPage = null;
-            this.config = !config ? DefaultSocketConfig : config;
+            this.config = !Config ? DefaultSocketConfig : Config;
             this.url = !url ? '' : url;
             if (auth) {
                 this.socket = this.connect();
@@ -330,10 +330,6 @@
                 });
             }
         };
-        SocketWrapper = __decorate([
-            __param(0, core.Optional()),
-            __metadata("design:paramtypes", [Object, String, Boolean, String])
-        ], SocketWrapper);
         return SocketWrapper;
     }());
 
