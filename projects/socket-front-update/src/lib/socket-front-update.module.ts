@@ -3,7 +3,7 @@ import {SocketIoConfig} from './interface/Interface-config';
 import {SocketWrapper} from './socket-front-update.service';
 
 // tslint:disable-next-line:max-line-length
-export function SocketFactory(config: { url?: string, config?: { path?: string; autoConnect?: boolean; transports?: string[]; query?: {}; reconnectionDelayMax?: number; extraHeaders?: {}; reconnection?: boolean; reconnectionAttempts?: number; timeout?: number; reconnectionDelay?: number; randomizationFactor?: number } | SocketIoConfig, auth?: boolean, loginPage?: string }) {
+export function SocketFactory(config: { url?: string, config?: SocketIoConfig, auth?: boolean, loginPage?: string }) {
   return new SocketWrapper(config);
 }
 
