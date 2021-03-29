@@ -1,5 +1,7 @@
+import { SocketIoConfig } from './interface/Interface-config';
 import { Observable } from 'rxjs';
 export declare class SocketWrapper {
+    private Config;
     tokenUpdater: any;
     socket: any;
     socket_path?: string;
@@ -17,9 +19,8 @@ export declare class SocketWrapper {
     loginPage: string;
     auth: boolean;
     private subscribersCounter;
-    private Config;
     private SocketConfig;
-    constructor(Config: any);
+    constructor(Config: SocketIoConfig);
     roomData(name: string, callback: () => void): void;
     of(namespace: string): void;
     on(eventName: string, callback: (data: any) => void): void;

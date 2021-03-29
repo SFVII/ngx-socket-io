@@ -1,13 +1,52 @@
 import { __decorate, __param, __metadata } from 'tslib';
-import { EventEmitter, Inject, Injectable, InjectionToken, Optional, SkipSelf, NgModule } from '@angular/core';
+import { InjectionToken, Optional, SkipSelf, NgModule, EventEmitter, Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import * as io from 'socket.io-client';
 import io__default from 'socket.io-client';
 
+var SocketIoModule_1;
+// tslint:disable-next-line:max-line-length
+function SocketFactory(config) {
+    return (config);
+}
+const SOCKET_CONFIG_TOKEN = new InjectionToken('__SocketWrapper__');
+let SocketIoModule = SocketIoModule_1 = class SocketIoModule {
+    constructor(parentModule) {
+        if (parentModule) {
+            throw new Error('SocketFrontUpdateModule is already loaded. Import it in the AppModule only');
+        }
+    }
+    static forRoot(config) {
+        return {
+            ngModule: SocketIoModule_1,
+            providers: [
+                SocketWrapper,
+                { provide: SOCKET_CONFIG_TOKEN, useValue: config }
+                /*  {
+                    provide: SocketWrapper,
+                    useFactory: SocketFactory,
+                    deps: [SOCKET_CONFIG_TOKEN]
+                  }*/
+            ]
+        };
+    }
+};
+SocketIoModule.ctorParameters = () => [
+    { type: SocketIoModule, decorators: [{ type: Optional }, { type: SkipSelf }] }
+];
+SocketIoModule = SocketIoModule_1 = __decorate([
+    NgModule({
+        providers: [SocketWrapper]
+    }),
+    __param(0, Optional()), __param(0, SkipSelf()),
+    __metadata("design:paramtypes", [SocketIoModule])
+], SocketIoModule);
+
 // @dynamic
 let SocketWrapper = class SocketWrapper {
     constructor(Config) {
+        this.Config = Config;
         this.tokenUpdater = new EventEmitter();
         this.subscribersCounter = 0;
         this.Config = Config;
@@ -97,50 +136,13 @@ let SocketWrapper = class SocketWrapper {
     }
 };
 SocketWrapper.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: ['__SocketWrapper__',] }] }
+    { type: undefined, decorators: [{ type: Inject, args: [SOCKET_CONFIG_TOKEN,] }] }
 ];
 SocketWrapper = __decorate([
     Injectable(),
-    __param(0, Inject('__SocketWrapper__')),
+    __param(0, Inject(SOCKET_CONFIG_TOKEN)),
     __metadata("design:paramtypes", [Object])
 ], SocketWrapper);
-
-var SocketIoModule_1;
-// tslint:disable-next-line:max-line-length
-function SocketFactory(config) {
-    return (config);
-}
-const SOCKET_CONFIG_TOKEN = new InjectionToken('__SocketWrapper__');
-let SocketIoModule = SocketIoModule_1 = class SocketIoModule {
-    constructor(parentModule) {
-        if (parentModule) {
-            throw new Error('SocketFrontUpdateModule is already loaded. Import it in the AppModule only');
-        }
-    }
-    static forRoot(config) {
-        return {
-            ngModule: SocketIoModule_1,
-            providers: [
-                { provide: SOCKET_CONFIG_TOKEN, useValue: config },
-                {
-                    provide: SocketWrapper,
-                    useFactory: SocketFactory,
-                    deps: [SOCKET_CONFIG_TOKEN]
-                }
-            ]
-        };
-    }
-};
-SocketIoModule.ctorParameters = () => [
-    { type: SocketIoModule, decorators: [{ type: Optional }, { type: SkipSelf }] }
-];
-SocketIoModule = SocketIoModule_1 = __decorate([
-    NgModule({
-        providers: [SocketWrapper]
-    }),
-    __param(0, Optional()), __param(0, SkipSelf()),
-    __metadata("design:paramtypes", [SocketIoModule])
-], SocketIoModule);
 
 /*
  * Public API Surface of socket-front-update

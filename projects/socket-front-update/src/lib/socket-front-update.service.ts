@@ -3,6 +3,7 @@ import {SocketConfig, SocketIoConfig} from './interface/Interface-config';
 import {Observable} from 'rxjs';
 import {share} from 'rxjs/operators';
 import * as io from 'socket.io-client';
+import {SOCKET_CONFIG_TOKEN} from './socket-front-update.module';
 
 // @dynamic
 @Injectable()
@@ -26,10 +27,10 @@ export class SocketWrapper {
   private subscribersCounter: number = 0;
 
   // tslint:disable-next-line:max-line-length
-  private Config: SocketIoConfig;
+  //private Config: SocketIoConfig;
   private SocketConfig: SocketConfig;
 
-  constructor(@Inject('__SocketWrapper__') Config) {
+  constructor(@Inject(SOCKET_CONFIG_TOKEN) private Config: SocketIoConfig) {
     this.Config = Config;
     for (let key in Config) {
       if (key.includes('socket_')) {

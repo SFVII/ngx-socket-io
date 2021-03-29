@@ -10,7 +10,7 @@ export function SocketFactory(config: SocketIoConfig) {
 export const SOCKET_CONFIG_TOKEN = new InjectionToken<SocketIoConfig>('__SocketWrapper__');
 
 @NgModule({
-  providers : [SocketWrapper]
+  providers: [SocketWrapper]
 })
 class SocketIoModule {
   constructor(@Optional() @SkipSelf() parentModule?: SocketIoModule) {
@@ -24,12 +24,13 @@ class SocketIoModule {
     return {
       ngModule: SocketIoModule,
       providers: [
-        {provide: SOCKET_CONFIG_TOKEN, useValue: config},
-        {
-          provide: SocketWrapper,
-          useFactory: SocketFactory,
-          deps: [SOCKET_CONFIG_TOKEN]
-        }
+        SocketWrapper,
+        {provide: SOCKET_CONFIG_TOKEN, useValue: config}
+        /*  {
+            provide: SocketWrapper,
+            useFactory: SocketFactory,
+            deps: [SOCKET_CONFIG_TOKEN]
+          }*/
       ]
     };
   }
