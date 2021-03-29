@@ -14,11 +14,11 @@ export class SocketWrapper {
   private url: string;
   // tslint:disable-next-line:max-line-length
   private Config: SocketIoConfig;
-  private config: any;
+  private SocketConfig: any;
 
   constructor(Config: SocketIoConfig) {
     this.Config = Config;
-    this.config = (!Config || Config && !Config.SocketConfig) ? DefaultSocketConfig : Config.SocketConfig;
+    this.SocketConfig = (!Config || Config && !Config.SocketConfig) ? DefaultSocketConfig : Config.SocketConfig;
     this.url = (!Config || Config && !Config.url) ? '' : Config.url;
     if ((Config && !Config.auth || !Config)) {
       this.socket = this.connect();
@@ -54,7 +54,7 @@ export class SocketWrapper {
 
   connect() {
     const ioSocket = (io as any).default ? (io as any).default : io;
-    return ioSocket(this.url, this.config).connect();
+    return ioSocket(this.url, this.SocketConfig).connect();
   }
 
   disconnect(close?: any): any {
