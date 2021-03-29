@@ -7,7 +7,7 @@ export function SocketFactory(config: SocketIoConfig) {
   return (config);
 }
 
-export const SOCKET_CONFIG_TOKEN = new InjectionToken<SocketIoConfig>('__SOCKET_IO_CONFIG__');
+export const SOCKET_CONFIG_TOKEN = new InjectionToken<SocketIoConfig>('__SocketWrapper__');
 
 @NgModule({
   providers : [SocketWrapper]

@@ -319,11 +319,11 @@
             }
         };
         SocketWrapper.ctorParameters = function () { return [
-            { type: undefined, decorators: [{ type: core.Inject, args: ['__SOCKET_IO_CONFIG_',] }] }
+            { type: undefined, decorators: [{ type: core.Inject, args: ['__SocketWrapper__',] }] }
         ]; };
         SocketWrapper = __decorate([
             core.Injectable(),
-            __param(0, core.Inject('__SOCKET_IO_CONFIG_')),
+            __param(0, core.Inject('__SocketWrapper__')),
             __metadata("design:paramtypes", [Object])
         ], SocketWrapper);
         return SocketWrapper;
@@ -333,7 +333,7 @@
     function SocketFactory(config) {
         return (config);
     }
-    var SOCKET_CONFIG_TOKEN = new core.InjectionToken('__SOCKET_IO_CONFIG__');
+    var SOCKET_CONFIG_TOKEN = new core.InjectionToken('__SocketWrapper__');
     var SocketIoModule = /** @class */ (function () {
         function SocketIoModule(parentModule) {
             if (parentModule) {

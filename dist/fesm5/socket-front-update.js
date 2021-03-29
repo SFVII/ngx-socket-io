@@ -99,11 +99,11 @@ var SocketWrapper = /** @class */ (function () {
         }
     };
     SocketWrapper.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: Inject, args: ['__SOCKET_IO_CONFIG_',] }] }
+        { type: undefined, decorators: [{ type: Inject, args: ['__SocketWrapper__',] }] }
     ]; };
     SocketWrapper = __decorate([
         Injectable(),
-        __param(0, Inject('__SOCKET_IO_CONFIG_')),
+        __param(0, Inject('__SocketWrapper__')),
         __metadata("design:paramtypes", [Object])
     ], SocketWrapper);
     return SocketWrapper;
@@ -113,7 +113,7 @@ var SocketWrapper = /** @class */ (function () {
 function SocketFactory(config) {
     return (config);
 }
-var SOCKET_CONFIG_TOKEN = new InjectionToken('__SOCKET_IO_CONFIG__');
+var SOCKET_CONFIG_TOKEN = new InjectionToken('__SocketWrapper__');
 var SocketIoModule = /** @class */ (function () {
     function SocketIoModule(parentModule) {
         if (parentModule) {

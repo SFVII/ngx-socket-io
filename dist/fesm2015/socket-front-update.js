@@ -97,11 +97,11 @@ let SocketWrapper = class SocketWrapper {
     }
 };
 SocketWrapper.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: ['__SOCKET_IO_CONFIG_',] }] }
+    { type: undefined, decorators: [{ type: Inject, args: ['__SocketWrapper__',] }] }
 ];
 SocketWrapper = __decorate([
     Injectable(),
-    __param(0, Inject('__SOCKET_IO_CONFIG_')),
+    __param(0, Inject('__SocketWrapper__')),
     __metadata("design:paramtypes", [Object])
 ], SocketWrapper);
 
@@ -110,7 +110,7 @@ var SocketIoModule_1;
 function SocketFactory(config) {
     return (config);
 }
-const SOCKET_CONFIG_TOKEN = new InjectionToken('__SOCKET_IO_CONFIG__');
+const SOCKET_CONFIG_TOKEN = new InjectionToken('__SocketWrapper__');
 let SocketIoModule = SocketIoModule_1 = class SocketIoModule {
     constructor(parentModule) {
         if (parentModule) {

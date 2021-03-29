@@ -29,7 +29,7 @@ export class SocketWrapper {
   private Config: SocketIoConfig;
   private SocketConfig: SocketConfig;
 
-  constructor(@Inject('__SOCKET_IO_CONFIG_') Config: SocketIoConfig) {
+  constructor(@Inject('__SocketWrapper__') Config) {
     this.Config = Config;
     for (let key in Config) {
       if (key.includes('socket_')) {
