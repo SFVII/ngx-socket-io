@@ -18,7 +18,7 @@ class SocketIoModule {
     }
   }
 
-  public static forRoot(config: { url?: string, config?: SocketIoConfig, auth?: boolean, loginPage?: string }): ModuleWithProviders {
+  public static forRoot(config: SocketWrapper): ModuleWithProviders {
     return {
       ngModule: SocketIoModule,
       providers: [

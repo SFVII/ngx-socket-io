@@ -10,11 +10,6 @@ export declare function SocketFactory(config: {
 export declare const SOCKET_CONFIG_TOKEN: InjectionToken<SocketIoConfig>;
 declare class SocketIoModule {
     constructor(parentModule?: SocketIoModule);
-    static forRoot(config: {
-        url?: string;
-        config?: SocketIoConfig;
-        auth?: boolean;
-        loginPage?: string;
-    }): ModuleWithProviders;
+    static forRoot(config: SocketWrapper): ModuleWithProviders;
 }
 export { SocketIoModule, SocketWrapper, SocketWrapper as Socket };
