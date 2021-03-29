@@ -248,15 +248,14 @@
 
     // @dynamic
     var SocketWrapper = /** @class */ (function () {
-        function SocketWrapper(Config) {
+        function SocketWrapper(config, url, auth, loginPage) {
             var _this = this;
             this.tokenUpdater = new core.EventEmitter();
             this.subscribersCounter = 0;
-            this.auth = false;
             this.loginPage = null;
-            this.config = !Config ? DefaultSocketConfig : Config.config;
-            this.url = !Config ? '' : Config.url;
-            if (Config && !Config.auth) {
+            this.config = !config ? DefaultSocketConfig : config;
+            this.url = !url ? '' : url;
+            if (auth) {
                 this.socket = this.connect();
             }
             else {
@@ -264,7 +263,7 @@
                     if (token) {
                         _this.config.extraHeaders.Authorization = "Baerer " + token;
                         _this.socket = _this.connect();
-                        _this.redirectLogin(Config.loginPage);
+                        _this.redirectLogin(loginPage);
                     }
                 });
             }
@@ -333,14 +332,14 @@
         };
         SocketWrapper = __decorate([
             __param(0, core.Optional()),
-            __metadata("design:paramtypes", [Object])
+            __metadata("design:paramtypes", [Object, String, Boolean, String])
         ], SocketWrapper);
         return SocketWrapper;
     }());
 
     // tslint:disable-next-line:max-line-length
     function SocketFactory(config) {
-        return new SocketWrapper(config);
+        return new SocketWrapper(config.config, config.url, config.auth, config.loginPage);
     }
     var SOCKET_CONFIG_TOKEN = new core.InjectionToken('__SOCKET_IO_CONFIG_');
     var SocketIoModule = /** @class */ (function () {

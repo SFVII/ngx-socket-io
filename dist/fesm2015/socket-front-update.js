@@ -28,14 +28,13 @@ const DefaultSocketConfig = {
 
 // @dynamic
 let SocketWrapper = class SocketWrapper {
-    constructor(Config) {
+    constructor(config, url, auth, loginPage) {
         this.tokenUpdater = new EventEmitter();
         this.subscribersCounter = 0;
-        this.auth = false;
         this.loginPage = null;
-        this.config = !Config ? DefaultSocketConfig : Config.config;
-        this.url = !Config ? '' : Config.url;
-        if (Config && !Config.auth) {
+        this.config = !config ? DefaultSocketConfig : config;
+        this.url = !url ? '' : url;
+        if (auth) {
             this.socket = this.connect();
         }
         else {
@@ -43,7 +42,7 @@ let SocketWrapper = class SocketWrapper {
                 if (token) {
                     this.config.extraHeaders.Authorization = `Baerer ${token}`;
                     this.socket = this.connect();
-                    this.redirectLogin(Config.loginPage);
+                    this.redirectLogin(loginPage);
                 }
             });
         }
@@ -111,13 +110,13 @@ let SocketWrapper = class SocketWrapper {
 };
 SocketWrapper = __decorate([
     __param(0, Optional()),
-    __metadata("design:paramtypes", [Object])
+    __metadata("design:paramtypes", [Object, String, Boolean, String])
 ], SocketWrapper);
 
 var SocketIoModule_1;
 // tslint:disable-next-line:max-line-length
 function SocketFactory(config) {
-    return new SocketWrapper(config);
+    return new SocketWrapper(config.config, config.url, config.auth, config.loginPage);
 }
 const SOCKET_CONFIG_TOKEN = new InjectionToken('__SOCKET_IO_CONFIG_');
 let SocketIoModule = SocketIoModule_1 = class SocketIoModule {
