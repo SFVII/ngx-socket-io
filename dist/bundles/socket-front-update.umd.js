@@ -254,6 +254,8 @@
             this.Config = Config;
             this.tokenUpdater = new core.EventEmitter();
             this.subscribersCounter = 0;
+            // tslint:disable-next-line:max-line-length
+            //private Config: SocketIoConfig;
             this.SocketConfig = DefaultSocketConfig;
             this.Config = Config;
             if (!this.SocketConfig) {
@@ -298,6 +300,7 @@
                             }
                             finally { if (e_1) throw e_1.error; }
                         }
+                        _this.SocketConfig.extraHeaders.Authorization = "Baerer " + token;
                         _this.SocketConfig.extraHeaders.Authorization = "Baerer " + token;
                         _this.socket = _this.connect();
                         if (Config && Config.loginPage) {

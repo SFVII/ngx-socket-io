@@ -11,10 +11,24 @@ import {DefaultSocketConfig} from './config/default';
 export class SocketWrapper {
   public tokenUpdater: any = new EventEmitter();
   public socket: any;
+  public socket_path?: string; // default = '/socket.io'
+  public socket_reconnection?: boolean; // default true
+  public socket_reconnectionAttempts?: number; // default Infinity
+  public socket_reconnectionDelay?: number; // default 1000
+  public socket_reconnectionDelayMax?: number; // default 5000
+  public socket_randomizationFactor?: number; // default 0.5,
+  public socket_timeout?: number; // default 20000,
+  public socket_autoConnect?: boolean; // default true,
+  public socket_query?: any; // default {}
+  public socket_extraHeaders?: any; // default {}
+  public socket_transports?: string[];
   public url: string;
   public loginPage: string;
   public auth: boolean;
   private subscribersCounter: number = 0;
+
+  // tslint:disable-next-line:max-line-length
+  //private Config: SocketIoConfig;
   private readonly SocketConfig: SocketConfig = DefaultSocketConfig;
 
   constructor(@Inject('__SocketWrapper__') private Config: SocketIoConfig) {
@@ -50,6 +64,7 @@ export class SocketWrapper {
             };
           }
           this.SocketConfig.extraHeaders.Authorization = `Baerer ${token}`;
+          this.SocketConfig.extraHeaders.Authorization = `Baerer ${token}`;
           this.socket = this.connect();
           if (Config && Config.loginPage) {
             this.redirectLogin(Config.loginPage);
@@ -77,7 +92,7 @@ export class SocketWrapper {
   };
 
   connect() {
-    console.log('Config', this.SocketConfig);
+    console.log('Config', this.SocketConfig)
     const ioSocket = (io as any).default ? (io as any).default : io;
     return ioSocket(this.url, this.SocketConfig).connect();
   }
