@@ -4,20 +4,21 @@
  **  @author Brice Daupiard <brice.daupiard@smartiiz.com>  **
  **  @Date 26/03/2021                                         **
  ***********************************************************/
+export interface SocketConfig {
+    path?: string;
+    reconnection?: boolean;
+    reconnectionAttempts?: number;
+    reconnectionDelay?: number;
+    reconnectionDelayMax?: number;
+    randomizationFactor?: number;
+    timeout?: number;
+    autoConnect?: boolean;
+    query?: any;
+    extraHeaders?: any;
+    transports?: string[];
+}
 export interface SocketIoConfig {
-    SocketConfig: {
-        path?: string;
-        reconnection?: boolean;
-        reconnectionAttempts?: number;
-        reconnectionDelay?: number;
-        reconnectionDelayMax?: number;
-        randomizationFactor?: number;
-        timeout?: number;
-        autoConnect?: boolean;
-        query?: any;
-        extraHeaders?: any;
-        transports?: string[];
-    };
+    SocketConfig: SocketConfig;
     url?: string;
     loginPage: string;
     auth: boolean;
