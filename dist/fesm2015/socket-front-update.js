@@ -31,6 +31,8 @@ let SocketWrapper = class SocketWrapper {
     constructor(Config) {
         this.tokenUpdater = new EventEmitter();
         this.subscribersCounter = 0;
+        this.auth = false;
+        this.loginPage = null;
         this.config = !Config ? DefaultSocketConfig : Config.config;
         this.url = !Config ? '' : Config.url;
         if (Config && !Config.auth) {

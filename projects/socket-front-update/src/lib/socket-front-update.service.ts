@@ -4,7 +4,6 @@ import {DefaultSocketConfig} from './config/default';
 import {Observable} from 'rxjs';
 import {share} from 'rxjs/operators';
 import * as io from 'socket.io-client';
-import { Inject } from '@angular/core';
 
 // @dynamic
 export class SocketWrapper {
@@ -15,10 +14,13 @@ export class SocketWrapper {
   private url: string;
   // tslint:disable-next-line:max-line-length
   private config: SocketIoConfig;
+  private auth: boolean = false;
+  private loginPage: string = null;
 
   constructor(@Optional() Config?: { url?: string; config?: SocketIoConfig, auth?: boolean, loginPage?: string }) {
     this.config = !Config ? DefaultSocketConfig : Config.config;
     this.url = !Config ? '' : Config.url;
+
     if (Config && !Config.auth) {
       this.socket = this.connect();
     } else {

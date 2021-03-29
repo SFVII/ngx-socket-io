@@ -6,6 +6,8 @@ export declare class SocketWrapper {
     private subscribersCounter;
     private url;
     private config;
+    private auth;
+    private loginPage;
     constructor(Config?: {
         url?: string;
         config?: SocketIoConfig;
