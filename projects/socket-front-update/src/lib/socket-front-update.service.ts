@@ -8,20 +8,20 @@ import * as io from 'socket.io-client';
 export class SocketWrapper {
   public tokenUpdater: any = new EventEmitter();
   public socket: any;
-  private socket_path?: string; // default = '/socket.io'
-  private socket_reconnection?: boolean; // default true
-  private socket_reconnectionAttempts?: number; // default Infinity
-  private socket_reconnectionDelay?: number; // default 1000
-  private socket_reconnectionDelayMax?: number; // default 5000
-  private socket_randomizationFactor?: number; // default 0.5,
-  private socket_timeout?: number; // default 20000,
-  private socket_autoConnect?: boolean; // default true,
-  private socket_query?: any; // default {}
-  private socket_extraHeaders?: any; // default {}
-  private socket_transports?: string[];
-  private url: string;
-  private loginPage: string;
-  private auth: boolean;
+  public socket_path?: string; // default = '/socket.io'
+  public socket_reconnection?: boolean; // default true
+  public socket_reconnectionAttempts?: number; // default Infinity
+  public socket_reconnectionDelay?: number; // default 1000
+  public socket_reconnectionDelayMax?: number; // default 5000
+  public socket_randomizationFactor?: number; // default 0.5,
+  public socket_timeout?: number; // default 20000,
+  public socket_autoConnect?: boolean; // default true,
+  public socket_query?: any; // default {}
+  public socket_extraHeaders?: any; // default {}
+  public socket_transports?: string[];
+  public url: string;
+  public loginPage: string;
+  public auth: boolean;
   private subscribersCounter: number = 0;
 
   // tslint:disable-next-line:max-line-length
