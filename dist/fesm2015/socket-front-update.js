@@ -31,6 +31,7 @@ class SocketWrapper {
     constructor(Config) {
         this.tokenUpdater = new EventEmitter();
         this.subscribersCounter = 0;
+        this.Config = Config;
         this.config = (!Config || Config && !Config.SocketConfig) ? DefaultSocketConfig : Config.SocketConfig;
         this.url = (!Config || Config && !Config.url) ? '' : Config.url;
         if ((Config && !Config.auth || !Config)) {
@@ -113,7 +114,7 @@ class SocketWrapper {
 var SocketIoModule_1;
 // tslint:disable-next-line:max-line-length
 function SocketFactory(config) {
-    return config;
+    return (new SocketWrapper(config));
 }
 const SOCKET_CONFIG_TOKEN = new InjectionToken('__SOCKET_IO_CONFIG_');
 let SocketIoModule = SocketIoModule_1 = class SocketIoModule {

@@ -13,9 +13,11 @@ export class SocketWrapper {
   private subscribersCounter: number = 0;
   private url: string;
   // tslint:disable-next-line:max-line-length
+  private Config: SocketIoConfig;
   private config: any;
 
   constructor(Config: SocketIoConfig) {
+    this.Config = Config;
     this.config = (!Config || Config && !Config.SocketConfig) ? DefaultSocketConfig : Config.SocketConfig;
     this.url = (!Config || Config && !Config.url) ? '' : Config.url;
     if ((Config && !Config.auth || !Config)) {

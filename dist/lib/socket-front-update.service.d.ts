@@ -5,6 +5,7 @@ export declare class SocketWrapper {
     socket: any;
     private subscribersCounter;
     private url;
+    private Config;
     private config;
     constructor(Config: SocketIoConfig);
     roomData(name: string, callback: () => void): void;

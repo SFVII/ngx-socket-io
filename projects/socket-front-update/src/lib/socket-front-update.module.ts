@@ -4,7 +4,7 @@ import {SocketWrapper} from './socket-front-update.service';
 
 // tslint:disable-next-line:max-line-length
 export function SocketFactory(config: SocketIoConfig) {
-  return config;
+  return (new SocketWrapper(config));
 }
 
 export const SOCKET_CONFIG_TOKEN = new InjectionToken<SocketIoConfig>('__SOCKET_IO_CONFIG_');
