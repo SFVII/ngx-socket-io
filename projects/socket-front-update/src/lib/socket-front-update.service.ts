@@ -25,7 +25,7 @@ export class SocketWrapper {
     } else {
       this.tokenUpdater.subscribe((token: string) => {
         if (token) {
-          this.config.extraHeaders.Authorization = `Baerer ${token}`;
+          this.SocketConfig.extraHeaders.Authorization = `Baerer ${token}`;
           this.socket = this.connect();
           if (Config && Config.loginPage) {
             this.redirectLogin(Config.loginPage);
