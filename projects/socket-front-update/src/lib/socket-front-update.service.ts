@@ -14,7 +14,7 @@ export class SocketWrapper {
   private subscribersCounter: number = 0;
   private url: string;
   // tslint:disable-next-line:max-line-length
-  private config: { path?: string; autoConnect?: boolean; transports?: string[]; query?: {}; reconnectionDelayMax?: number; extraHeaders?: {}; reconnection?: boolean; reconnectionAttempts?: number; timeout?: number; reconnectionDelay?: number; randomizationFactor?: number } | SocketIoConfig;
+  private config: SocketIoConfig;
 
   constructor(@Optional() Config?: { url?: string; config?: SocketIoConfig, auth?: boolean, loginPage?: string }) {
     this.config = !Config ? DefaultSocketConfig : Config.config;

@@ -4,7 +4,9 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
-    "declaration": false,
+    "stripInternal": true,
+    "declaration": true,
+   // "strictNullChecks": true,
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "module": "esnext",
@@ -19,6 +21,8 @@
       "dom"
     ],
     "paths": {
+      "@angular/core": ["node_modules/@angular/core"],
+      "rxjs/*": ["node_modules/rxjs/*"],
       "socket-front-update": [
         "dist/socket-front-update/socket-front-update",
         "dist/socket-front-update"
@@ -26,8 +30,10 @@
     }
   },
   "angularCompilerOptions": {
+    "emitDecoratorMetadata": true,
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,
-    "enableIvy": false
+    //"enableIvy": false,
+    "strictMetadataEmit": true
   }
 }

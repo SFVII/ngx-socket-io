@@ -330,7 +330,8 @@
             }
         };
         SocketWrapper = __decorate([
-            __param(0, core.Optional())
+            __param(0, core.Optional()),
+            __metadata("design:paramtypes", [Object])
         ], SocketWrapper);
         return SocketWrapper;
     }());
@@ -346,10 +347,9 @@
                 throw new Error('SocketFrontUpdateModule is already loaded. Import it in the AppModule only');
             }
         }
-        SocketIoModule_1 = SocketIoModule;
         SocketIoModule.forRoot = function (config) {
             return {
-                ngModule: SocketIoModule_1,
+                ngModule: SocketIoModule,
                 providers: [
                     { provide: SOCKET_CONFIG_TOKEN, useValue: config },
                     {
@@ -360,16 +360,18 @@
                 ]
             };
         };
-        var SocketIoModule_1;
-        SocketIoModule.ctorParameters = function () { return [
-            { type: SocketIoModule, decorators: [{ type: core.Optional }, { type: core.SkipSelf }] }
-        ]; };
-        SocketIoModule = SocketIoModule_1 = __decorate([
-            core.NgModule({}),
-            __param(0, core.Optional()), __param(0, core.SkipSelf())
-        ], SocketIoModule);
+        SocketIoModule.ɵmod = core.ɵɵdefineNgModule({ type: SocketIoModule });
+        SocketIoModule.ɵinj = core.ɵɵdefineInjector({ factory: function SocketIoModule_Factory(t) { return new (t || SocketIoModule)(core.ɵɵinject(SocketIoModule, 12)); } });
         return SocketIoModule;
     }());
+    /*@__PURE__*/ (function () { core.ɵsetClassMetadata(SocketIoModule, [{
+            type: core.NgModule,
+            args: [{}]
+        }], function () { return [{ type: SocketIoModule, decorators: [{
+                    type: core.Optional
+                }, {
+                    type: core.SkipSelf
+                }] }]; }, null); })();
 
     exports.SOCKET_CONFIG_TOKEN = SOCKET_CONFIG_TOKEN;
     exports.Socket = SocketWrapper;

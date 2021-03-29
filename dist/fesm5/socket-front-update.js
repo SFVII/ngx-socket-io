@@ -1,5 +1,5 @@
-import { __decorate, __param } from 'tslib';
-import { EventEmitter, Optional, InjectionToken, SkipSelf, NgModule } from '@angular/core';
+import { EventEmitter, Optional, InjectionToken, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵinject, ɵsetClassMetadata, NgModule, SkipSelf } from '@angular/core';
+import { __decorate, __param, __metadata } from 'tslib';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import * as io from 'socket.io-client';
@@ -110,7 +110,8 @@ var SocketWrapper = /** @class */ (function () {
         }
     };
     SocketWrapper = __decorate([
-        __param(0, Optional())
+        __param(0, Optional()),
+        __metadata("design:paramtypes", [Object])
     ], SocketWrapper);
     return SocketWrapper;
 }());
@@ -126,10 +127,9 @@ var SocketIoModule = /** @class */ (function () {
             throw new Error('SocketFrontUpdateModule is already loaded. Import it in the AppModule only');
         }
     }
-    SocketIoModule_1 = SocketIoModule;
     SocketIoModule.forRoot = function (config) {
         return {
-            ngModule: SocketIoModule_1,
+            ngModule: SocketIoModule,
             providers: [
                 { provide: SOCKET_CONFIG_TOKEN, useValue: config },
                 {
@@ -140,16 +140,18 @@ var SocketIoModule = /** @class */ (function () {
             ]
         };
     };
-    var SocketIoModule_1;
-    SocketIoModule.ctorParameters = function () { return [
-        { type: SocketIoModule, decorators: [{ type: Optional }, { type: SkipSelf }] }
-    ]; };
-    SocketIoModule = SocketIoModule_1 = __decorate([
-        NgModule({}),
-        __param(0, Optional()), __param(0, SkipSelf())
-    ], SocketIoModule);
+    SocketIoModule.ɵmod = ɵɵdefineNgModule({ type: SocketIoModule });
+    SocketIoModule.ɵinj = ɵɵdefineInjector({ factory: function SocketIoModule_Factory(t) { return new (t || SocketIoModule)(ɵɵinject(SocketIoModule, 12)); } });
     return SocketIoModule;
 }());
+/*@__PURE__*/ (function () { ɵsetClassMetadata(SocketIoModule, [{
+        type: NgModule,
+        args: [{}]
+    }], function () { return [{ type: SocketIoModule, decorators: [{
+                type: Optional
+            }, {
+                type: SkipSelf
+            }] }]; }, null); })();
 
 /*
  * Public API Surface of socket-front-update
