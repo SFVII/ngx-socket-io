@@ -3,11 +3,11 @@ import {SocketIoConfig} from './interface/Interface-config';
 import {SocketWrapper} from './socket-front-update.service';
 
 // tslint:disable-next-line:max-line-length
-export function SocketFactory(config: { url?: string, config?: SocketIoConfig, auth?: boolean, loginPage?: string }) {
-  return new SocketWrapper(config.config, config.url, config.auth, config.loginPage);
+export function SocketFactory(config: SocketIoConfig) {
+  return new SocketWrapper(config);
 }
 
-export const SOCKET_CONFIG_TOKEN = new InjectionToken<{ config?: SocketIoConfig; url?: string; auth?: boolean; loginPage?: string }>('__SOCKET_IO_CONFIG_');
+export const SOCKET_CONFIG_TOKEN = new InjectionToken<SocketIoConfig>('__SOCKET_IO_CONFIG_');
 
 @NgModule({})
 class SocketIoModule {
@@ -18,7 +18,7 @@ class SocketIoModule {
     }
   }
 
-  public static forRoot(config: { config: SocketIoConfig; url: string; auth: boolean; loginPage: string }): ModuleWithProviders {
+  public static forRoot(config: SocketIoConfig): ModuleWithProviders {
     return {
       ngModule: SocketIoModule,
       providers: [

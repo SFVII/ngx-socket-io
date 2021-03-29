@@ -28,14 +28,13 @@ var DefaultSocketConfig = {
 
 // @dynamic
 var SocketWrapper = /** @class */ (function () {
-    function SocketWrapper(Config, url, auth, loginPage) {
+    function SocketWrapper(Config) {
         var _this = this;
         this.tokenUpdater = new EventEmitter();
         this.subscribersCounter = 0;
-        this.loginPage = null;
-        this.config = !Config ? DefaultSocketConfig : Config;
-        this.url = !url ? '' : url;
-        if (auth) {
+        this.config = (!Config || Config && !Config.SocketConfig) ? DefaultSocketConfig : Config.SocketConfig;
+        this.url = (!Config || Config && !Config.url) ? '' : Config.url;
+        if ((Config && !Config.auth || !Config)) {
             this.socket = this.connect();
         }
         else {
@@ -43,7 +42,9 @@ var SocketWrapper = /** @class */ (function () {
                 if (token) {
                     _this.config.extraHeaders.Authorization = "Baerer " + token;
                     _this.socket = _this.connect();
-                    _this.redirectLogin(loginPage);
+                    if (Config && Config.loginPage) {
+                        _this.redirectLogin(Config.loginPage);
+                    }
                 }
             });
         }
@@ -115,7 +116,7 @@ var SocketWrapper = /** @class */ (function () {
 
 // tslint:disable-next-line:max-line-length
 function SocketFactory(config) {
-    return new SocketWrapper(config.config, config.url, config.auth, config.loginPage);
+    return new SocketWrapper(config);
 }
 var SOCKET_CONFIG_TOKEN = new InjectionToken('__SOCKET_IO_CONFIG_');
 var SocketIoModule = /** @class */ (function () {

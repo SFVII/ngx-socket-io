@@ -1,4 +1,4 @@
-import {EventEmitter, Optional} from '@angular/core';
+import {EventEmitter} from '@angular/core';
 import {SocketIoConfig} from './interface/Interface-config';
 import {DefaultSocketConfig} from './config/default';
 import {Observable} from 'rxjs';
@@ -13,21 +13,21 @@ export class SocketWrapper {
   private subscribersCounter: number = 0;
   private url: string;
   // tslint:disable-next-line:max-line-length
-  private config: SocketIoConfig;
-  private auth: false;
-  private loginPage: string = null;
+  private config: any;
 
-  constructor(Config: SocketIoConfig, url: string, auth: boolean, loginPage: string) {
-    this.config = !Config ? DefaultSocketConfig : Config;
-    this.url = !url ? '' : url;
-    if (auth) {
+  constructor(Config: SocketIoConfig) {
+    this.config = (!Config || Config && !Config.SocketConfig) ? DefaultSocketConfig : Config.SocketConfig;
+    this.url = (!Config || Config && !Config.url) ? '' : Config.url;
+    if ((Config && !Config.auth || !Config)) {
       this.socket = this.connect();
     } else {
       this.tokenUpdater.subscribe((token: string) => {
         if (token) {
           this.config.extraHeaders.Authorization = `Baerer ${token}`;
           this.socket = this.connect();
-          this.redirectLogin(loginPage);
+          if (Config && Config.loginPage) {
+            this.redirectLogin(Config.loginPage);
+          }
         }
       });
     }

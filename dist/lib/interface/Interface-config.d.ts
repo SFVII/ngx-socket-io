@@ -5,15 +5,20 @@
  **  @Date 26/03/2021                                         **
  ***********************************************************/
 export interface SocketIoConfig {
-    path?: string;
-    reconnection?: boolean;
-    reconnectionAttempts?: number;
-    reconnectionDelay?: number;
-    reconnectionDelayMax?: number;
-    randomizationFactor?: number;
-    timeout?: number;
-    autoConnect?: boolean;
-    query?: any;
-    extraHeaders?: any;
-    transports?: string[];
+    SocketConfig: {
+        path?: string;
+        reconnection?: boolean;
+        reconnectionAttempts?: number;
+        reconnectionDelay?: number;
+        reconnectionDelayMax?: number;
+        randomizationFactor?: number;
+        timeout?: number;
+        autoConnect?: boolean;
+        query?: any;
+        extraHeaders?: any;
+        transports?: string[];
+    };
+    url?: string;
+    loginPage: string;
+    auth: boolean;
 }

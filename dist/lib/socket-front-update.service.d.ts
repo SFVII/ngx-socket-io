@@ -6,9 +6,7 @@ export declare class SocketWrapper {
     private subscribersCounter;
     private url;
     private config;
-    private auth;
-    private loginPage;
-    constructor(Config: SocketIoConfig, url: string, auth: boolean, loginPage: string);
+    constructor(Config: SocketIoConfig);
     roomData(name: string, callback: () => void): void;
     of(namespace: string): void;
     on(eventName: string, callback: (data: any) => void): void;
