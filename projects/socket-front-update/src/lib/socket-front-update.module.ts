@@ -7,7 +7,7 @@ export function SocketFactory(config: SocketIoConfig) {
   return (config);
 }
 
-export const SOCKET_CONFIG_TOKEN = new InjectionToken<SocketIoConfig>('__SocketWrapper__');
+//export const SOCKET_CONFIG_TOKEN = new InjectionToken<SocketIoConfig>('__SocketWrapper__');
 
 @NgModule({
   providers: [SocketWrapper]
@@ -24,12 +24,9 @@ class SocketIoModule {
     return {
       ngModule: SocketIoModule,
       providers: [
-        SocketWrapper,
-        {provide: SOCKET_CONFIG_TOKEN, useValue: config},
-        {
-          provide: SocketWrapper,
-          deps: [SOCKET_CONFIG_TOKEN]
-        }
+        //SocketWrapper,
+        {provide: '__SocketWrapper__', useValue: config},
+        SocketWrapper
       ]
     };
   }

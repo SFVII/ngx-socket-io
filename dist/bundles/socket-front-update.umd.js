@@ -225,45 +225,7 @@
         return value;
     }
 
-    // tslint:disable-next-line:max-line-length
-    function SocketFactory(config) {
-        return (config);
-    }
-    var SOCKET_CONFIG_TOKEN = new core.InjectionToken('__SocketWrapper__');
-    var SocketIoModule = /** @class */ (function () {
-        function SocketIoModule(parentModule) {
-            if (parentModule) {
-                throw new Error('SocketFrontUpdateModule is already loaded. Import it in the AppModule only');
-            }
-        }
-        SocketIoModule_1 = SocketIoModule;
-        SocketIoModule.forRoot = function (config) {
-            return {
-                ngModule: SocketIoModule_1,
-                providers: [
-                    SocketWrapper,
-                    { provide: SOCKET_CONFIG_TOKEN, useValue: config },
-                    {
-                        provide: SocketWrapper,
-                        deps: [SOCKET_CONFIG_TOKEN]
-                    }
-                ]
-            };
-        };
-        var SocketIoModule_1;
-        SocketIoModule.ctorParameters = function () { return [
-            { type: SocketIoModule, decorators: [{ type: core.Optional }, { type: core.SkipSelf }] }
-        ]; };
-        SocketIoModule = SocketIoModule_1 = __decorate([
-            core.NgModule({
-                providers: [SocketWrapper]
-            }),
-            __param(0, core.Optional()), __param(0, core.SkipSelf()),
-            __metadata("design:paramtypes", [SocketIoModule])
-        ], SocketIoModule);
-        return SocketIoModule;
-    }());
-
+    //import {SOCKET_CONFIG_TOKEN} from './socket-front-update.module';
     // @dynamic
     var SocketWrapper = /** @class */ (function () {
         function SocketWrapper(Config) {
@@ -359,17 +321,52 @@
             }
         };
         SocketWrapper.ctorParameters = function () { return [
-            { type: undefined, decorators: [{ type: core.Inject, args: [SOCKET_CONFIG_TOKEN,] }] }
+            { type: undefined, decorators: [{ type: core.Inject, args: ['__SocketWrapper__',] }] }
         ]; };
         SocketWrapper = __decorate([
             core.Injectable(),
-            __param(0, core.Inject(SOCKET_CONFIG_TOKEN)),
+            __param(0, core.Inject('__SocketWrapper__')),
             __metadata("design:paramtypes", [Object])
         ], SocketWrapper);
         return SocketWrapper;
     }());
 
-    exports.SOCKET_CONFIG_TOKEN = SOCKET_CONFIG_TOKEN;
+    // tslint:disable-next-line:max-line-length
+    function SocketFactory(config) {
+        return (config);
+    }
+    //export const SOCKET_CONFIG_TOKEN = new InjectionToken<SocketIoConfig>('__SocketWrapper__');
+    var SocketIoModule = /** @class */ (function () {
+        function SocketIoModule(parentModule) {
+            if (parentModule) {
+                throw new Error('SocketFrontUpdateModule is already loaded. Import it in the AppModule only');
+            }
+        }
+        SocketIoModule_1 = SocketIoModule;
+        SocketIoModule.forRoot = function (config) {
+            return {
+                ngModule: SocketIoModule_1,
+                providers: [
+                    //SocketWrapper,
+                    { provide: '__SocketWrapper__', useValue: config },
+                    SocketWrapper
+                ]
+            };
+        };
+        var SocketIoModule_1;
+        SocketIoModule.ctorParameters = function () { return [
+            { type: SocketIoModule, decorators: [{ type: core.Optional }, { type: core.SkipSelf }] }
+        ]; };
+        SocketIoModule = SocketIoModule_1 = __decorate([
+            core.NgModule({
+                providers: [SocketWrapper]
+            }),
+            __param(0, core.Optional()), __param(0, core.SkipSelf()),
+            __metadata("design:paramtypes", [SocketIoModule])
+        ], SocketIoModule);
+        return SocketIoModule;
+    }());
+
     exports.Socket = SocketWrapper;
     exports.SocketFactory = SocketFactory;
     exports.SocketIoModule = SocketIoModule;

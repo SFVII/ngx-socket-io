@@ -1,49 +1,11 @@
 import { __decorate, __param, __metadata } from 'tslib';
-import { InjectionToken, Optional, SkipSelf, NgModule, EventEmitter, Inject, Injectable } from '@angular/core';
+import { EventEmitter, Inject, Injectable, Optional, SkipSelf, NgModule } from '@angular/core';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import * as io from 'socket.io-client';
 import io__default from 'socket.io-client';
 
-// tslint:disable-next-line:max-line-length
-function SocketFactory(config) {
-    return (config);
-}
-var SOCKET_CONFIG_TOKEN = new InjectionToken('__SocketWrapper__');
-var SocketIoModule = /** @class */ (function () {
-    function SocketIoModule(parentModule) {
-        if (parentModule) {
-            throw new Error('SocketFrontUpdateModule is already loaded. Import it in the AppModule only');
-        }
-    }
-    SocketIoModule_1 = SocketIoModule;
-    SocketIoModule.forRoot = function (config) {
-        return {
-            ngModule: SocketIoModule_1,
-            providers: [
-                SocketWrapper,
-                { provide: SOCKET_CONFIG_TOKEN, useValue: config },
-                {
-                    provide: SocketWrapper,
-                    deps: [SOCKET_CONFIG_TOKEN]
-                }
-            ]
-        };
-    };
-    var SocketIoModule_1;
-    SocketIoModule.ctorParameters = function () { return [
-        { type: SocketIoModule, decorators: [{ type: Optional }, { type: SkipSelf }] }
-    ]; };
-    SocketIoModule = SocketIoModule_1 = __decorate([
-        NgModule({
-            providers: [SocketWrapper]
-        }),
-        __param(0, Optional()), __param(0, SkipSelf()),
-        __metadata("design:paramtypes", [SocketIoModule])
-    ], SocketIoModule);
-    return SocketIoModule;
-}());
-
+//import {SOCKET_CONFIG_TOKEN} from './socket-front-update.module';
 // @dynamic
 var SocketWrapper = /** @class */ (function () {
     function SocketWrapper(Config) {
@@ -139,14 +101,50 @@ var SocketWrapper = /** @class */ (function () {
         }
     };
     SocketWrapper.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: Inject, args: [SOCKET_CONFIG_TOKEN,] }] }
+        { type: undefined, decorators: [{ type: Inject, args: ['__SocketWrapper__',] }] }
     ]; };
     SocketWrapper = __decorate([
         Injectable(),
-        __param(0, Inject(SOCKET_CONFIG_TOKEN)),
+        __param(0, Inject('__SocketWrapper__')),
         __metadata("design:paramtypes", [Object])
     ], SocketWrapper);
     return SocketWrapper;
+}());
+
+// tslint:disable-next-line:max-line-length
+function SocketFactory(config) {
+    return (config);
+}
+//export const SOCKET_CONFIG_TOKEN = new InjectionToken<SocketIoConfig>('__SocketWrapper__');
+var SocketIoModule = /** @class */ (function () {
+    function SocketIoModule(parentModule) {
+        if (parentModule) {
+            throw new Error('SocketFrontUpdateModule is already loaded. Import it in the AppModule only');
+        }
+    }
+    SocketIoModule_1 = SocketIoModule;
+    SocketIoModule.forRoot = function (config) {
+        return {
+            ngModule: SocketIoModule_1,
+            providers: [
+                //SocketWrapper,
+                { provide: '__SocketWrapper__', useValue: config },
+                SocketWrapper
+            ]
+        };
+    };
+    var SocketIoModule_1;
+    SocketIoModule.ctorParameters = function () { return [
+        { type: SocketIoModule, decorators: [{ type: Optional }, { type: SkipSelf }] }
+    ]; };
+    SocketIoModule = SocketIoModule_1 = __decorate([
+        NgModule({
+            providers: [SocketWrapper]
+        }),
+        __param(0, Optional()), __param(0, SkipSelf()),
+        __metadata("design:paramtypes", [SocketIoModule])
+    ], SocketIoModule);
+    return SocketIoModule;
 }());
 
 /*
@@ -157,5 +155,5 @@ var SocketWrapper = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { SOCKET_CONFIG_TOKEN, SocketWrapper as Socket, SocketFactory, SocketIoModule };
+export { SocketWrapper as Socket, SocketFactory, SocketIoModule };
 //# sourceMappingURL=socket-front-update.js.map
