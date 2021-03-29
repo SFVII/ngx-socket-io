@@ -336,7 +336,7 @@
 
     // tslint:disable-next-line:max-line-length
     function SocketFactory(config) {
-        return new SocketWrapper(config);
+        return config;
     }
     var SOCKET_CONFIG_TOKEN = new core.InjectionToken('__SOCKET_IO_CONFIG_');
     var SocketIoModule = /** @class */ (function () {
