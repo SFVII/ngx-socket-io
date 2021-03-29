@@ -1,5 +1,5 @@
-import { EventEmitter, Optional, InjectionToken, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵinject, ɵsetClassMetadata, NgModule, SkipSelf } from '@angular/core';
 import { __decorate, __param, __metadata } from 'tslib';
+import { EventEmitter, Optional, InjectionToken, SkipSelf, NgModule } from '@angular/core';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import * as io from 'socket.io-client';
@@ -127,9 +127,10 @@ var SocketIoModule = /** @class */ (function () {
             throw new Error('SocketFrontUpdateModule is already loaded. Import it in the AppModule only');
         }
     }
+    SocketIoModule_1 = SocketIoModule;
     SocketIoModule.forRoot = function (config) {
         return {
-            ngModule: SocketIoModule,
+            ngModule: SocketIoModule_1,
             providers: [
                 { provide: SOCKET_CONFIG_TOKEN, useValue: config },
                 {
@@ -140,18 +141,17 @@ var SocketIoModule = /** @class */ (function () {
             ]
         };
     };
-    SocketIoModule.ɵmod = ɵɵdefineNgModule({ type: SocketIoModule });
-    SocketIoModule.ɵinj = ɵɵdefineInjector({ factory: function SocketIoModule_Factory(t) { return new (t || SocketIoModule)(ɵɵinject(SocketIoModule, 12)); } });
+    var SocketIoModule_1;
+    SocketIoModule.ctorParameters = function () { return [
+        { type: SocketIoModule, decorators: [{ type: Optional }, { type: SkipSelf }] }
+    ]; };
+    SocketIoModule = SocketIoModule_1 = __decorate([
+        NgModule({}),
+        __param(0, Optional()), __param(0, SkipSelf()),
+        __metadata("design:paramtypes", [SocketIoModule])
+    ], SocketIoModule);
     return SocketIoModule;
 }());
-/*@__PURE__*/ (function () { ɵsetClassMetadata(SocketIoModule, [{
-        type: NgModule,
-        args: [{}]
-    }], function () { return [{ type: SocketIoModule, decorators: [{
-                type: Optional
-            }, {
-                type: SkipSelf
-            }] }]; }, null); })();
 
 /*
  * Public API Surface of socket-front-update
