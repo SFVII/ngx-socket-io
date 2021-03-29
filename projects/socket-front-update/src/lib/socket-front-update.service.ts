@@ -14,21 +14,20 @@ export class SocketWrapper {
   private url: string;
   // tslint:disable-next-line:max-line-length
   private config: SocketIoConfig;
-  private auth: boolean = false;
+  private auth: false;
   private loginPage: string = null;
 
-  constructor(@Optional() Config?: { url?: string; config?: SocketIoConfig, auth?: boolean, loginPage?: string }) {
-    this.config = !Config ? DefaultSocketConfig : Config.config;
-    this.url = !Config ? '' : Config.url;
-
-    if (Config && !Config.auth) {
+  constructor(@Optional() config?: SocketIoConfig, url?: string, auth?: boolean, loginPage?: string) {
+    this.config = !config ? DefaultSocketConfig : config;
+    this.url = !url ? '' : url;
+    if (auth) {
       this.socket = this.connect();
     } else {
       this.tokenUpdater.subscribe((token: string) => {
         if (token) {
           this.config.extraHeaders.Authorization = `Baerer ${token}`;
           this.socket = this.connect();
-          this.redirectLogin(Config.loginPage);
+          this.redirectLogin(loginPage);
         }
       });
     }
