@@ -4,10 +4,10 @@ import {SocketWrapper} from './socket-front-update.service';
 
 // tslint:disable-next-line:max-line-length
 export function SocketFactory(config: SocketIoConfig) {
-  return (new SocketWrapper(config));
+  return (config);
 }
 
-export const SOCKET_CONFIG_TOKEN = new InjectionToken<SocketIoConfig>('__SOCKET_IO_CONFIG_');
+export const SOCKET_CONFIG_TOKEN = new InjectionToken<SocketIoConfig>('__SOCKET_IO_CONFIG__');
 
 @NgModule({
   providers : [SocketWrapper]
