@@ -1,10 +1,11 @@
-import {EventEmitter} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {SocketConfig, SocketIoConfig} from './interface/Interface-config';
 import {Observable} from 'rxjs';
 import {share} from 'rxjs/operators';
 import * as io from 'socket.io-client';
 
 // @dynamic
+@Injectable()
 export class SocketWrapper {
   public tokenUpdater: any = new EventEmitter();
   public socket: any;
