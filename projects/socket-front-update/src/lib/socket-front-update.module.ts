@@ -20,7 +20,7 @@ class SocketIoModule {
     }
   }
 
-  public static forRoot(config: SocketWrapper): ModuleWithProviders<SocketIoModule> {
+  public static forRoot(config: SocketIoConfig): ModuleWithProviders<SocketIoModule> {
     return {
       ngModule: SocketIoModule,
       providers: [

@@ -11,17 +11,6 @@ import {DefaultSocketConfig} from './config/default';
 export class SocketWrapper {
   public tokenUpdater?: any = new EventEmitter();
   public socket?: any;
-  public socket_path?: string; // default = '/socket.io'
-  public socket_reconnection?: boolean; // default true
-  public socket_reconnectionAttempts?: number; // default Infinity
-  public socket_reconnectionDelay?: number; // default 1000
-  public socket_reconnectionDelayMax?: number; // default 5000
-  public socket_randomizationFactor?: number; // default 0.5,
-  public socket_timeout?: number; // default 20000,
-  public socket_autoConnect?: boolean; // default true,
-  public socket_query?: any; // default {}
-  public socket_extraHeaders?: any; // default {}
-  public socket_transports?: string[];
   public url?: string;
   public loginPage?: string;
   public auth?: boolean;
