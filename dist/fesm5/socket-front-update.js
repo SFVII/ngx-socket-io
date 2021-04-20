@@ -91,13 +91,14 @@ var SocketWrapper = /** @class */ (function () {
         }
     }
     SocketWrapper.prototype.subscribe = function (name) {
-        this.socket.emit('joinroom', name);
-        this.roomList.push(name);
+        this.socket.emit('subscribe', name);
+        if (this.roomList.indexOf(name) === -1) {
+            this.roomList.push(name);
+        }
     };
     SocketWrapper.prototype.of = function (namespace) {
         this.socket.of(namespace);
     };
-    ;
     SocketWrapper.prototype.on = function (eventName, callback) {
         this.socket.on(eventName, callback);
     };

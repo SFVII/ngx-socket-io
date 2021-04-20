@@ -79,13 +79,14 @@ let SocketWrapper = class SocketWrapper {
         }
     }
     subscribe(name) {
-        this.socket.emit('joinroom', name);
-        this.roomList.push(name);
+        this.socket.emit('subscribe', name);
+        if (this.roomList.indexOf(name) === -1) {
+            this.roomList.push(name);
+        }
     }
     of(namespace) {
         this.socket.of(namespace);
     }
-    ;
     on(eventName, callback) {
         this.socket.on(eventName, callback);
     }

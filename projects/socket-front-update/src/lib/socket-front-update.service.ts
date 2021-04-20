@@ -63,13 +63,15 @@ export class SocketWrapper {
   }
 
   subscribe(name: string) {
-    this.socket.emit('joinroom', name);
-    this.roomList.push(name);
+    this.socket.emit('subscribe', name);
+    if (this.roomList.indexOf(name) === -1) {
+      this.roomList.push(name);
+    }
   }
 
   of(namespace: string): void {
     this.socket.of(namespace);
-  };
+  }
 
   on(eventName: string, callback: (data: any) => void): void {
     this.socket.on(eventName, callback);
