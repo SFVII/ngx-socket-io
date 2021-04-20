@@ -33,8 +33,7 @@ let SocketWrapper = class SocketWrapper {
         this.Config = Config;
         this.tokenUpdater = new EventEmitter();
         this.subscribersCounter = 0;
-        // tslint:disable-next-line:max-line-length
-        //private Config: SocketIoConfig;
+        this.roomList = [];
         this.SocketConfig = DefaultSocketConfig;
         this.Config = Config;
         if (!this.SocketConfig) {
@@ -48,12 +47,12 @@ let SocketWrapper = class SocketWrapper {
         this.url = (!Config || Config && !Config.url) ? '' : Config.url;
         if ((Config && !Config.auth || !Config)) {
             this.socket = this.connect();
+            this.onReconnect();
         }
         else {
             this.socket = this.connect();
             this.tokenUpdater.subscribe((token) => {
                 this.disconnect();
-                //console.log('Got a token', token);
                 if (token) {
                     if (!this.SocketConfig.extraHeaders) {
                         this.SocketConfig.extraHeaders = {};
@@ -74,13 +73,14 @@ let SocketWrapper = class SocketWrapper {
                     if (Config && Config.loginPage) {
                         this.redirectLogin(Config.loginPage);
                     }
+                    this.onReconnect();
                 }
             });
         }
     }
-    roomData(name, callback) {
+    subscribe(name) {
         this.socket.emit('joinroom', name);
-        this.socket.on(name, callback);
+        this.roomList.push(name);
     }
     of(namespace) {
         this.socket.of(namespace);
@@ -132,6 +132,24 @@ let SocketWrapper = class SocketWrapper {
         return new Promise(resolve => this.once(eventName, resolve));
     }
     ;
+    onReconnect() {
+        if (this.socket) {
+            this.socket.on('reconnect', () => {
+                if (this.roomList && this.roomList.length) {
+                    console.log('current rooms', this.roomList.length);
+                    this.roomList.forEach((name) => {
+                        this.subscribe(name);
+                    });
+                }
+                else {
+                    console.log('room is empty');
+                }
+            });
+        }
+        else {
+            console.log('socket does not exist');
+        }
+    }
     redirectLogin(loginPage) {
         if (this.socket && loginPage) {
             this.socket.on('session-time-out', (msg) => {

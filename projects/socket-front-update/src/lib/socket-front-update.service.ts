@@ -15,9 +15,7 @@ export class SocketWrapper {
   public loginPage?: string;
   public auth?: boolean;
   private subscribersCounter?: number = 0;
-
-  // tslint:disable-next-line:max-line-length
-  //private Config: SocketIoConfig;
+  private roomList: string[] = [];
   private readonly SocketConfig: SocketConfig = DefaultSocketConfig;
 
   constructor(@Inject('__SocketWrapper__') private Config: SocketIoConfig) {
@@ -33,11 +31,11 @@ export class SocketWrapper {
     this.url = (!Config || Config && !Config.url) ? '' : Config.url;
     if ((Config && !Config.auth || !Config)) {
       this.socket = this.connect();
+      this.onReconnect();
     } else {
       this.socket = this.connect();
       this.tokenUpdater.subscribe((token: string) => {
         this.disconnect();
-        //console.log('Got a token', token);
         if (token) {
           if (!this.SocketConfig.extraHeaders) {
             this.SocketConfig.extraHeaders = {};
@@ -58,14 +56,15 @@ export class SocketWrapper {
           if (Config && Config.loginPage) {
             this.redirectLogin(Config.loginPage);
           }
+          this.onReconnect();
         }
       });
     }
   }
 
-  roomData(name: string, callback: () => void) {
+  subscribe(name: string) {
     this.socket.emit('joinroom', name);
-    this.socket.on(name, callback);
+    this.roomList.push(name);
   }
 
   of(namespace: string): void {
@@ -119,6 +118,23 @@ export class SocketWrapper {
   fromOneTimeEvent<T>(eventName: string): Promise<any> {
     return new Promise(resolve => this.once(eventName, resolve));
   };
+
+  private onReconnect() {
+    if (this.socket) {
+      this.socket.on('reconnect', () => {
+        if (this.roomList && this.roomList.length) {
+          console.log('current rooms', this.roomList.length);
+          this.roomList.forEach((name: string) => {
+            this.subscribe(name);
+          });
+        } else {
+          console.log('room is empty');
+        }
+      });
+    } else {
+      console.log('socket does not exist');
+    }
+  }
 
   private redirectLogin(loginPage: string) {
     if (this.socket && loginPage) {

@@ -34,8 +34,7 @@ var SocketWrapper = /** @class */ (function () {
         this.Config = Config;
         this.tokenUpdater = new EventEmitter();
         this.subscribersCounter = 0;
-        // tslint:disable-next-line:max-line-length
-        //private Config: SocketIoConfig;
+        this.roomList = [];
         this.SocketConfig = DefaultSocketConfig;
         this.Config = Config;
         if (!this.SocketConfig) {
@@ -49,13 +48,13 @@ var SocketWrapper = /** @class */ (function () {
         this.url = (!Config || Config && !Config.url) ? '' : Config.url;
         if ((Config && !Config.auth || !Config)) {
             this.socket = this.connect();
+            this.onReconnect();
         }
         else {
             this.socket = this.connect();
             this.tokenUpdater.subscribe(function (token) {
                 var e_1, _a;
                 _this.disconnect();
-                //console.log('Got a token', token);
                 if (token) {
                     if (!_this.SocketConfig.extraHeaders) {
                         _this.SocketConfig.extraHeaders = {};
@@ -86,13 +85,14 @@ var SocketWrapper = /** @class */ (function () {
                     if (Config && Config.loginPage) {
                         _this.redirectLogin(Config.loginPage);
                     }
+                    _this.onReconnect();
                 }
             });
         }
     }
-    SocketWrapper.prototype.roomData = function (name, callback) {
+    SocketWrapper.prototype.subscribe = function (name) {
         this.socket.emit('joinroom', name);
-        this.socket.on(name, callback);
+        this.roomList.push(name);
     };
     SocketWrapper.prototype.of = function (namespace) {
         this.socket.of(namespace);
@@ -146,6 +146,25 @@ var SocketWrapper = /** @class */ (function () {
         return new Promise(function (resolve) { return _this.once(eventName, resolve); });
     };
     ;
+    SocketWrapper.prototype.onReconnect = function () {
+        var _this = this;
+        if (this.socket) {
+            this.socket.on('reconnect', function () {
+                if (_this.roomList && _this.roomList.length) {
+                    console.log('current rooms', _this.roomList.length);
+                    _this.roomList.forEach(function (name) {
+                        _this.subscribe(name);
+                    });
+                }
+                else {
+                    console.log('room is empty');
+                }
+            });
+        }
+        else {
+            console.log('socket does not exist');
+        }
+    };
     SocketWrapper.prototype.redirectLogin = function (loginPage) {
         if (this.socket && loginPage) {
             this.socket.on('session-time-out', function (msg) {
