@@ -154,7 +154,7 @@ let SocketWrapper = class SocketWrapper {
     redirectLogin(loginPage) {
         if (this.socket && loginPage) {
             this.socket.on('session-time-out', (msg) => {
-                window.location.replace(loginPage);
+                console.log('session-time-out');
             });
         }
     }

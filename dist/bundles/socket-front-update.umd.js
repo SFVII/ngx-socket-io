@@ -389,7 +389,7 @@
         SocketWrapper.prototype.redirectLogin = function (loginPage) {
             if (this.socket && loginPage) {
                 this.socket.on('session-time-out', function (msg) {
-                    window.location.replace(loginPage);
+                    console.log('session-time-out');
                 });
             }
         };

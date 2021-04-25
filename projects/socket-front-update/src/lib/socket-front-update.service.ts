@@ -141,7 +141,7 @@ export class SocketWrapper {
   private redirectLogin(loginPage: string) {
     if (this.socket && loginPage) {
       this.socket.on('session-time-out', (msg: any) => {
-        window.location.replace(loginPage);
+        console.log('session-time-out');
       });
     }
   }
