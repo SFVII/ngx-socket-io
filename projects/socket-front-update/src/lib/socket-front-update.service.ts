@@ -29,11 +29,10 @@ export class SocketWrapper {
       }
     }
     this.url = (!Config || Config && !Config.url) ? '' : Config.url;
+    this.socket = this.connect();
     if ((Config && !Config.auth || !Config)) {
-      this.socket = this.connect();
       this.onReconnect();
     } else {
-      // this.socket = this.connect();
       this.tokenUpdater.subscribe((token: string) => {
         if (this.socket) {
           this.disconnect();
