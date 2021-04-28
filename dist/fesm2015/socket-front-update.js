@@ -1,4 +1,4 @@
-import { __decorate, __param, __metadata } from 'tslib';
+import { __awaiter, __decorate, __param, __metadata } from 'tslib';
 import { EventEmitter, Inject, Injectable, Optional, SkipSelf, NgModule } from '@angular/core';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
@@ -50,9 +50,11 @@ let SocketWrapper = class SocketWrapper {
             this.onReconnect();
         }
         else {
-            this.socket = this.connect();
+            // this.socket = this.connect();
             this.tokenUpdater.subscribe((token) => {
-                this.disconnect();
+                if (this.socket) {
+                    this.disconnect();
+                }
                 if (token) {
                     if (!this.SocketConfig.extraHeaders) {
                         this.SocketConfig.extraHeaders = {};
@@ -78,11 +80,39 @@ let SocketWrapper = class SocketWrapper {
             });
         }
     }
+    unsubscribe(name) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.socket.emit('unsubscribe', name);
+            const index = this.roomList.findIndex((room) => room === name);
+            if (index > -1) {
+                this.roomList.splice(index, 1);
+                console.log('unsubscribe room %s', name);
+            }
+            else {
+                console.log('no joined room');
+            }
+        });
+    }
+    unsubscribeAll() {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (this.roomList.length) {
+                this.roomList.forEach((room) => {
+                    this.unsubscribe(room);
+                });
+            }
+        });
+    }
     subscribe(name) {
-        this.socket.emit('subscribe', name);
-        if (this.roomList.indexOf(name) === -1) {
-            this.roomList.push(name);
-        }
+        return __awaiter(this, void 0, void 0, function* () {
+            if (this.roomList.indexOf(name) > -1) {
+                yield this.unsubscribe(name);
+            }
+            if (this.roomList.indexOf(name) === -1) {
+                this.roomList.push(name);
+            }
+            console.log('subscribe room %s', name);
+            yield this.socket.emit('subscribe', name);
+        });
     }
     of(namespace) {
         this.socket.of(namespace);
@@ -137,9 +167,8 @@ let SocketWrapper = class SocketWrapper {
         if (this.socket) {
             this.socket.on('reconnect', () => {
                 if (this.roomList && this.roomList.length) {
-                    console.log('current rooms', this.roomList.length);
                     this.roomList.forEach((name) => {
-                        this.subscribe(name);
+                        this.subscribe(name).catch((err) => console.log('error socket reconnect', err));
                     });
                 }
                 else {

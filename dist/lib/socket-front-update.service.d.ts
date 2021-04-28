@@ -11,7 +11,9 @@ export declare class SocketWrapper {
     private roomList;
     private readonly SocketConfig;
     constructor(Config: SocketIoConfig);
-    subscribe(name: string): void;
+    unsubscribe(name: string): Promise<void>;
+    unsubscribeAll(): Promise<void>;
+    subscribe(name: string): Promise<void>;
     of(namespace: string): void;
     on(eventName: string, callback: (data: any) => void): void;
     once(eventName: string, callback: (data: any) => void): void;

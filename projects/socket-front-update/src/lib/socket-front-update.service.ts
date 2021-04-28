@@ -33,9 +33,11 @@ export class SocketWrapper {
       this.socket = this.connect();
       this.onReconnect();
     } else {
-      this.socket = this.connect();
+      // this.socket = this.connect();
       this.tokenUpdater.subscribe((token: string) => {
-        this.disconnect();
+        if (this.socket) {
+          this.disconnect();
+        }
         if (token) {
           if (!this.SocketConfig.extraHeaders) {
             this.SocketConfig.extraHeaders = {};
@@ -62,11 +64,34 @@ export class SocketWrapper {
     }
   }
 
-  subscribe(name: string) {
-    this.socket.emit('subscribe', name);
+  async unsubscribe(name: string) {
+    this.socket.emit('unsubscribe', name);
+    const index = this.roomList.findIndex((room: string) => room === name);
+    if (index > -1) {
+      this.roomList.splice(index, 1);
+      console.log('unsubscribe room %s', name);
+    } else {
+      console.log('no joined room');
+    }
+  }
+
+  async unsubscribeAll() {
+    if (this.roomList.length) {
+      this.roomList.forEach((room: string) => {
+        this.unsubscribe(room);
+      });
+    }
+  }
+
+  async subscribe(name: string) {
+    if (this.roomList.indexOf(name) > -1) {
+      await this.unsubscribe(name);
+    }
     if (this.roomList.indexOf(name) === -1) {
       this.roomList.push(name);
     }
+    console.log('subscribe room %s', name);
+    await this.socket.emit('subscribe', name);
   }
 
   of(namespace: string): void {
@@ -125,9 +150,8 @@ export class SocketWrapper {
     if (this.socket) {
       this.socket.on('reconnect', () => {
         if (this.roomList && this.roomList.length) {
-          console.log('current rooms', this.roomList.length);
           this.roomList.forEach((name: string) => {
-            this.subscribe(name);
+            this.subscribe(name).catch((err: any) => console.log('error socket reconnect', err));
           });
         } else {
           console.log('room is empty');

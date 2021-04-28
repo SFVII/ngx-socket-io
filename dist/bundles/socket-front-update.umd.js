@@ -271,10 +271,12 @@
                 this.onReconnect();
             }
             else {
-                this.socket = this.connect();
+                // this.socket = this.connect();
                 this.tokenUpdater.subscribe(function (token) {
                     var e_1, _a;
-                    _this.disconnect();
+                    if (_this.socket) {
+                        _this.disconnect();
+                    }
                     if (token) {
                         if (!_this.SocketConfig.extraHeaders) {
                             _this.SocketConfig.extraHeaders = {};
@@ -310,11 +312,58 @@
                 });
             }
         }
+        SocketWrapper.prototype.unsubscribe = function (name) {
+            return __awaiter(this, void 0, void 0, function () {
+                var index;
+                return __generator(this, function (_a) {
+                    this.socket.emit('unsubscribe', name);
+                    index = this.roomList.findIndex(function (room) { return room === name; });
+                    if (index > -1) {
+                        this.roomList.splice(index, 1);
+                        console.log('unsubscribe room %s', name);
+                    }
+                    else {
+                        console.log('no joined room');
+                    }
+                    return [2 /*return*/];
+                });
+            });
+        };
+        SocketWrapper.prototype.unsubscribeAll = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var _this = this;
+                return __generator(this, function (_a) {
+                    if (this.roomList.length) {
+                        this.roomList.forEach(function (room) {
+                            _this.unsubscribe(room);
+                        });
+                    }
+                    return [2 /*return*/];
+                });
+            });
+        };
         SocketWrapper.prototype.subscribe = function (name) {
-            this.socket.emit('subscribe', name);
-            if (this.roomList.indexOf(name) === -1) {
-                this.roomList.push(name);
-            }
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            if (!(this.roomList.indexOf(name) > -1)) return [3 /*break*/, 2];
+                            return [4 /*yield*/, this.unsubscribe(name)];
+                        case 1:
+                            _a.sent();
+                            _a.label = 2;
+                        case 2:
+                            if (this.roomList.indexOf(name) === -1) {
+                                this.roomList.push(name);
+                            }
+                            console.log('subscribe room %s', name);
+                            return [4 /*yield*/, this.socket.emit('subscribe', name)];
+                        case 3:
+                            _a.sent();
+                            return [2 /*return*/];
+                    }
+                });
+            });
         };
         SocketWrapper.prototype.of = function (namespace) {
             this.socket.of(namespace);
@@ -372,9 +421,8 @@
             if (this.socket) {
                 this.socket.on('reconnect', function () {
                     if (_this.roomList && _this.roomList.length) {
-                        console.log('current rooms', _this.roomList.length);
                         _this.roomList.forEach(function (name) {
-                            _this.subscribe(name);
+                            _this.subscribe(name).catch(function (err) { return console.log('error socket reconnect', err); });
                         });
                     }
                     else {
